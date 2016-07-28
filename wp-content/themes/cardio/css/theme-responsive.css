@@ -1,0 +1,209 @@
+/* Mobile Portrait View */
+
+@media screen and (max-width:479px) {
+
+*{box-sizing:border-box;}
+	.container { width:90%; margin:0 auto;}
+	#header { position:inherit !important; width:100%; padding:30px 0 15px 0;}
+	#header .logo { float:none; text-align:center; width:100%;}	
+	
+/* ------ Extra ------ */
+	.toggle{display:block;}
+	.toggle a{width:100%; color:#ffffff; background:url(../images/mobile_nav_right.png) no-repeat right center #e25050; padding:10px 10px; margin-top:20px; font-size:16px;}
+	.toggle a:hover{ color:#ffffff !important;}
+	.toggle a.active{color:#0bb5c7;}
+	.main-nav{display:none;}
+	.main-nav{float:none; margin:0; position:relative; overflow-x:hidden; }
+	.main-nav ul{background:#000000; color:#000; width:100%; float:none !important; margin-left:0;}
+	.main-nav ul li{border-top:1px #303030 solid; display:block; float:none; text-align:left;}
+	.main-nav ul li a{padding:5px 10px; display:block; color:#ffffff !important; font-size:13px;}
+	.main-nav ul li a:hover{color:#ffffff !important;}
+	.main-nav ul li ul, .nav ul li ul ul{ display:block !important;}
+	.main-nav ul li ul li a:before{content:"\00BB \00a0";}
+	.main-nav ul li ul li a{padding-left:20px !important;}
+	.main-nav ul li ul li ul li a{padding-left:30px !important;}
+	#slider .nivo-caption{ top:0; width:100%; left:0;}
+	#slider .nivo-caption .top-bar{ top:20px; padding:0 20px;}
+	#slider .nivo-caption .top-bar h2{ font-size:17px; padding-bottom:20px; line-height:20px;}
+	#slider .top-bar p{ display:none;}
+	#slider .nivo-directionNav a{ top:30%;}
+	section{ padding:40px 0;}
+	.welcome-box { width:auto; float:none; margin-right:0;}
+	.welcome-box .welcome-icon { height:75px;}
+	.blogposts { width:100%;}
+	.blogthumbs { width:95px;}
+	.blogcontent { width:163px;}
+
+/* --------- Pages ------- */
+	.content-area{ width:auto; margin:0 20px; padding:50px 0;}
+	.site-main{ width:auto; margin:0; padding:0; float:none;}
+	h2.entry-title { font-size:20px;}
+	#sidebar{ width:auto; margin:60px 0 0; padding:0; float:none;}	
+	.copyright-wrapper { width:auto; padding-bottom:0;}
+	.copyright-wrapper .inner { width:95%;}
+	.copyright-wrapper .inner .footer-menu { float:none; width:100%; margin:10px 0;}
+	.copyright-wrapper .inner .copyright { width:100%; text-align:center; padding:15px 0; border-top:1px solid #4f4f4f;}
+	.copyright-txt, .design-by { text-align:center; float:none;}
+	.inner-top { padding-bottom:0;}
+	.footer-contact { width:100%;}
+	.footer-form { width:100%;}
+	.footer-menu ul{ text-align:center;}
+	.footer-menu ul li { float:none; display:inline-block;}
+	.footer-menu ul li a { border-right:none; line-height:28px;}
+	.footer-menu { float:none;}
+	h2.section-title{ margin-bottom:5px;}
+	.postmeta, .entry-meta { font-size:11px;}	
+	a.read-more{ display:none;}
+	#sitemain iframe{ max-width:100%; height:auto;}
+}
+
+/* Mobile Landscape View */
+
+@media screen and (max-width:719px) and (min-width:480px) { 
+	*{box-sizing:border-box;}
+	.container { width:90%; margin:0 auto;}
+	#header { position:inherit !important; width:100%; padding:30px 0 15px 0;}
+	#header .logo { float:none; text-align:center; width:100%;}
+	.toggle{display:block;}
+	.toggle a{width:100%; color:#ffffff; background:url(../images/mobile_nav_right.png) no-repeat right center #e25050; padding:10px 10px; margin-top:20px; font-size:16px;}
+	.toggle a:hover { color:#ffffff; text-decoration:none;}
+	.toggle a.active{color:#ffffff; text-decoration:none;}
+	.main-nav{display:none;}
+	#header .main-nav{float:none; margin:0; position:relative; overflow-x:hidden; }
+	#header .main-nav ul{background:#000000; color:#000; width:100%; float:none; margin-left:0; font-size:15px;}
+	#header .main-nav ul li{border-top:1px #303030 solid; display:block; float:none; text-align:left;}
+	#header .main-nav ul li a{padding:5px 10px; display:block; color:#ffffff;}
+	#header .main-nav ul li a:hover{color:#ffffff;}
+	#header .main-nav ul li ul li a:before{content:"\00BB \00a0";}
+	#header .main-nav ul li ul li a{padding-left:20px;}
+	#header .main-nav ul li ul li ul li a{padding-left:30px;}	
+	#slider .nivo-caption{ top:0; width:80%; height:90%;}
+	#slider .nivo-caption .top-bar{ top:70px; padding:0 20px 32px;}
+	#slider .nivo-caption .top-bar h2{ font-size:17px; padding-bottom:10px; line-height:20px;}
+	.nivo-directionNav a{ top:39% !important;}
+	#slider .top-bar p{ display:none;}
+	#prevslide, #nextslide{ top:0;}		
+	.alignleft, img.alignleft { float:none; display:block;}	
+
+/* ------ Extra ------ */
+	.one_half{ width:100%;}
+	section{ padding:40px 0;}
+	.welcome-box { float: none; margin: 72px auto 0; width: 75%;}
+	.welcome-box .welcome-icon { height:75px;}
+	.welcome-box.wellast { margin: 72px auto 0;}
+	.blogposts { width:100%;}
+	.blogthumbs { width:27%;}
+	.blogcontent { width:69%;}
+
+/* --------- Pages ------- */
+	.content-area{ width:auto; margin:0 20px; padding:50px 0;}
+	.site-main{ width:auto; margin:0; padding:0; float:none;}
+	#sidebar{ width:auto; margin:60px 0 0; padding:0; float:none;}	
+	h2.section-title{ margin-bottom:5px;}
+	.map iframe{ height:232px;}	
+	.copyright-wrapper { width:auto; padding-bottom:0;}
+	.copyright-wrapper .inner { width:95%;}
+	.copyright-wrapper .inner .footer-menu { float:none; width:100%; margin:10px 0;}
+	.copyright-wrapper .inner .copyright { width:100%; text-align:center; padding:15px 0;  border-top:1px solid #4f4f4f; }
+	.copyright-txt, .design-by { text-align:center; float:none;}
+	.inner-top { padding-bottom:0;}
+	.footer-contact { width:100%;}
+	.footer-form { width:100%;}
+	.footer-menu ul{ text-align:center;}
+	.footer-menu ul li { float:none; display:inline-block;}
+	.footer-menu ul li a { border-right:none; line-height:28px;}
+	.footer-menu { float:none;}
+	a.read-more{ display:none;}
+	#sitemain iframe{ max-width:100%; height:auto;}
+	
+}
+
+
+@media screen and (max-width:899px) and (min-width:320px) { 
+	h2.section-title { line-height:38px; font-size:20px !important; text-align:center;}
+	.section-subtitle { line-height:25px; text-align:center; padding-bottom:0; font-size:20px !important; margin-bottom:30px;}
+	.cat_comments{ height:auto;}
+	#contact .column-2, #contact .column-2.last_column{ width:100%; float:none; margin:0 0 20px 0;}
+	.toggle a { color:#ffffff;}
+	.toggle a:hover { color:#ffffff; text-decoration:none;}
+	.toggle a.active{color:#ffffff; text-decoration:none;}
+	a.select { left:32%;}
+}
+
+/* Tablet View */
+
+@media screen and (max-width:999px) and (min-width:720px) { 
+	*{box-sizing:border-box;}
+	.container { width:95%;}
+	#header { padding:30px 0 15px 0;}
+	#header .logo{ float:none; text-align:center; margin:0 auto;}
+	.toggle{display:block;}
+	.toggle a{width:100%; color:#ffffff; background:url(../images/mobile_nav_right.png) no-repeat right center #e25050; padding:10px 10px; margin-top:20px; font-size:16px;}
+	.toggle a:hover { color:#ffffff; text-decoration:none;}
+	.toggle a.active{color:#ffffff; text-decoration:none;}
+	.main-nav{display:none;}
+	#header .main-nav{float:none; margin:0; position:relative; overflow-x:hidden; }
+	#header .main-nav ul{background:#000000; color:#000; width:100%; float:none; margin-left:0; font-size:15px !important; }
+	#header .main-nav ul li{border-top:1px #303030 solid; display:block; float:none; text-align:left;}
+	.main-nav ul li a{padding:5px 5px; display:block; color:#ffffff !important;}
+	.main-nav ul li a:hover{color:#ffffff !important; padding-left:5px; padding-right:5px;}
+	.main-nav ul li ul li a:before{content:"\00BB \00a0";}
+	.main-nav ul li ul li a{padding-left:20px !important;}
+	.main-nav ul li ul li ul li a{padding-left:30px !important;}	
+	#slider .nivo-caption{ left: 35px;top: 35px; width:60%; overflow:visible;}
+	#slider .nivo-caption .top-bar{ top:20px; padding:0 20px;}
+	#slider .nivo-caption .top-bar h4 { line-height:normal; padding:2px 5px;}
+	#slider .nivo-caption .top-bar h2{ font-size:17px; padding-bottom:14px; line-height:20px;}
+	#slider .top-bar p{ font-size:14px; padding:10px 15px;}
+	a.read-more{ margin-top:2px;}
+/* ------ Extra ------ */
+	#welcome-box { width:23.2%;}
+	#welcome-box.wellast { margin-right:0;}
+	.welcome-icon { width:60px; top:-35px; padding-top:13px; font-size:12px;}
+	.blogposts { width:31%; margin-right:20px;}
+	.blogthumbs { width:100%; float:none;}
+	.blogcontent { width:100%; float:none;}
+/* --------- Pages ------- */
+	.content-area{ width:auto; margin:0 20px; padding:50px 0;}
+	.alignleft, img.alignleft { float:none; display:block;}
+	.site-main{ width:60%; margin:0; padding:0; float:left;}
+	#sidebar{ width:35%; margin:0; padding:0; float:right;}			
+	#main-footer, .copyright ul li, .footer-menu ul li a{ font-size:14px;}
+	.inner-top { padding-bottom:0;}	
+	.footer-contact { width:40%; margin-bottom:0;}
+	.footer-form { width:50%;}
+	.footer { width:100%; text-align:center;}
+	.copyright-wrapper .inner{ width:95%; margin: auto;}
+	.footer-menu { margin-bottom:10px; display:inline-block; text-align:center;}
+}
+
+@media screen and (min-width: 1000px) {
+	#header { width:100%;}
+	#header .main-nav{ width:100%;}
+	#header .main-nav ul li ul li{display:block; position:relative; float:none;}
+	#header .main-nav ul li ul li a{color:#ffffff; display:block; padding-top:10px; padding-bottom:10px; border-bottom:1px #313131 solid; padding-right:0px !important; padding-left:16px;}
+	#header .main-nav ul li ul li ul li a{border-bottom:1px #313131 solid !important;}
+	.toggle a { text-decoration:none;}
+	.toggle a:hover { color:#0bb5c7; text-decoration:none;}
+	.toggle a.active{color:#0bb5c7; text-decoration:none;}
+	#slider .nivo-caption .top-bar{ top:-20px; margin-bottom:0;}
+	#slider .top-bar h2 {  line-height:normal;}
+	#welcome-box { width:22.4%;}
+	.blogposts { width:100%;}
+	.blogthumbs { width:30%;}
+	.blogcontent { width:66%;}
+	.site-main { width:70%;}
+}
+
+@media screen and (min-width:1000px) and (max-width:1159px){
+	.copyright-wrapper .inner{ width:95%;}
+	.nivo-caption{ top:17% !important; height:auto !important;}
+	.cat_comments .cat{ width:48%;}
+	.footer-col{ margin-right:43px;}
+	.footer-col .foot-post .foot-post-content{ width:224px;}
+	.top-search input.search-submit { top:-39px;}
+	.content-area{ width:95%; padding:50px 0; margin:0 auto;}
+	.container { width:95%;}
+	#slider .top-bar h2{ font-size:25px;}
+	.welcome-box{ width:22% !important;}
+}

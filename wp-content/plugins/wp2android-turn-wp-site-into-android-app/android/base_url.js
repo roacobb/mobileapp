@@ -1,0 +1,1 @@
+var url = "http://ec2-52-90-170-121.compute-1.amazonaws.com/wp-content/plugins/wp2android-turn-wp-site-into-android-app/";

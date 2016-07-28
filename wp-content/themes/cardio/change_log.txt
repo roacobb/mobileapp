@@ -1,0 +1,17 @@
+Version 1.0
+i) Intial version Release
+
+Version 1.1
+i) Removed unused files and functions and updated pot file.
+
+Version 1.2
+i) Resolved slider content creation issue and made few changes as suggested by reviewer.
+
+Version 1.2.1
+i) Hide title and subtitle by default and added some functions as required.
+
+Version 1.2.2
+i) Translate js file text and header color works.
+
+Version 1.2.3
+i) Made text in js file translatable.

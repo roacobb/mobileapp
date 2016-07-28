@@ -1,0 +1,10 @@
+/* TinyMCE Custom Styles - Default values for WordPress 3.9+ */
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+img {
+	max-width:234px !important; height:auto; width:auto !important;
+}

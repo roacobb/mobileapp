@@ -1,0 +1,15 @@
+/* TinyMCE Custom Styles - Default values for WordPress pre 3.9 */
+html .mcecontentbody {
+	font: 12px/1.4 'Helvetica Neue',Arial,Helvetica,sans-serif;
+	max-width: 301px; /*Default + 1 fix */
+	word-wrap: break-word;
+}
+.mcecontentbody a {
+	text-decoration:none;
+}
+.mcecontentbody a:hover {
+	text-decoration:underline;
+}
+.mcecontentbody img {
+	max-width:234px !important; height:auto; width:auto !important;
+}
