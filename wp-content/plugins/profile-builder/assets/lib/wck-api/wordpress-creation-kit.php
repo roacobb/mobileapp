@@ -260,6 +260,9 @@ class Wordpress_Creation_Kit_PB{
 		if( file_exists( dirname( __FILE__ ).'/fields/'.$details['type'].'.php' ) ){
 			require( dirname( __FILE__ ).'/fields/'.$details['type'].'.php' );
 		}
+
+        // Add a filter that allows us to add support for custom field types, not just the ones defined in fields (wck api)
+        $element .=  apply_filters('wck_output_form_field_customtype_' . $details['type'], '', $value, $details, $single_prefix);
 		
 		if( !empty( $details['description'] ) ){
 			$element .= '<p class="description">'. $details['description'].'</p>';

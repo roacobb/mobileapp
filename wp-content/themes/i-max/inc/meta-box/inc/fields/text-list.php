@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'RWMB_Text_List_Field' ) )
 {
-	class RWMB_Text_List_Field extends RWMB_Field_Multiple_Values
+	class RWMB_Text_List_Field extends RWMB_Field
 	{
 		/**
 		 * Get field HTML
@@ -16,79 +16,94 @@ if ( ! class_exists( 'RWMB_Text_List_Field' ) )
 		 */
 		static function html( $meta, $field )
 		{
-			$html  = array();
-			$input = '<label><input type="text" class="rwmb-text-list" name="%s" value="%s" placeholder="%s"> %s</label>';
+			$html  = '';
+			$input = '<label><input type="text" class="rwmb-text-list" name="%s" id="%s" value="%s" placeholder="%s" /> %s</label>';
 
 			$i = 0;
-			foreach ( $field['options'] as $placeholder => $label )
+			foreach ( $field['options'] as $value => $label )
 			{
-				$html[] = sprintf(
+				$html .= sprintf(
 					$input,
 					$field['field_name'],
-					isset( $meta[$i] ) ? esc_attr( $meta[$i] ) : '',
-					$placeholder,
+					$field['id'],
+					$meta[$i],
+					$value,
 					$label
 				);
 				$i ++;
 			}
 
-			return implode( ' ', $html );
+			return $html;
 		}
 
 		/**
-		 * Output the field value
-		 * Display option name instead of option value
+		 * Get meta value
+		 * If field is cloneable, value is saved as a single entry in DB
+		 * Otherwise value is saved as multiple entries (for backward compatibility)
 		 *
-		 * @param  array    $field   Field parameters
-		 * @param  array    $args    Additional arguments. Not used for these fields.
-		 * @param  int|null $post_id Post ID. null for current post. Optional.
+		 * @see "save" method for better understanding
 		 *
-		 * @return mixed Field value
+		 * TODO: A good way to ALWAYS save values in single entry in DB, while maintaining backward compatibility
+		 *
+		 * @param $post_id
+		 * @param $saved
+		 * @param $field
+		 *
+		 * @return array
 		 */
-		static function the_value( $field, $args = array(), $post_id = null )
+		static function meta( $post_id, $saved, $field )
 		{
-			$value = self::get_value( $field, $args, $post_id );
-			if ( ! $value )
-				return '';
+			$single = $field['clone'] || ! $field['multiple'];
+			$meta   = get_post_meta( $post_id, $field['id'], $single );
+			$meta   = ( ! $saved && '' === $meta || array() === $meta ) ? $field['std'] : $meta;
 
-			$output = '<ul>';
-			if ( $field['clone'] )
+			$meta = array_map( 'esc_attr', (array) $meta );
+
+			return $meta;
+		}
+
+		/**
+		 * Save meta value
+		 * If field is cloneable, value is saved as a single entry in DB
+		 * Otherwise value is saved as multiple entries (for backward compatibility)
+		 *
+		 * TODO: A good way to ALWAYS save values in single entry in DB, while maintaining backward compatibility
+		 *
+		 * @param $new
+		 * @param $old
+		 * @param $post_id
+		 * @param $field
+		 */
+		static function save( $new, $old, $post_id, $field )
+		{
+			if ( ! $field['clone'] )
 			{
-				foreach ( $value as $subvalue )
-				{
-					$output .= '<li>';
-					$output .= '<ul>';
+				parent::save( $new, $old, $post_id, $field );
 
-					$i = 0;
-					foreach ( $field['options'] as $placeholder => $label )
-					{
-						$output .= sprintf(
-							'<li><label>%s</label>: %s</li>',
-							$label,
-							isset( $subvalue[$i] ) ? $subvalue[$i] : ''
-						);
-						$i ++;
-					}
-					$output .= '</ul>';
-					$output .= '</li>';
-				}
+				return;
 			}
+
+			if ( empty( $new ) )
+				delete_post_meta( $post_id, $field['id'] );
 			else
-			{
-				$i = 0;
-				foreach ( $field['options'] as $placeholder => $label )
-				{
-					$output .= sprintf(
-						'<li><label>%s</label>: %s</li>',
-						$label,
-						isset( $value[$i] ) ? $value[$i] : ''
-					);
-					$i ++;
-				}
-			}
-			$output .= '</ul>';
+				update_post_meta( $post_id, $field['id'], $new );
+		}
 
-			return $output;
+		/**
+		 * Normalize parameters for field
+		 *
+		 * @param array $field
+		 *
+		 * @return array
+		 */
+		static function normalize_field( $field )
+		{
+			$field['multiple']   = true;
+			$field['field_name'] = $field['id'];
+			if ( ! $field['clone'] )
+				$field['field_name'] .= '[]';
+
+			return $field;
 		}
 	}
 }

@@ -200,7 +200,7 @@ jQuery(document).ready(function($) {
 	 
 	});
 
-	
+	// Banner Parallax Effect
 	if ( $('.ibanner').length > 0 )
 	{			
 	

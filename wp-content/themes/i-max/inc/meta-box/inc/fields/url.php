@@ -10,19 +10,23 @@ if ( ! class_exists( 'RWMB_URL_Field' ) )
 	class RWMB_URL_Field extends RWMB_Text_Field
 	{
 		/**
-		 * Normalize parameters for field
+		 * Get field HTML
 		 *
+		 * @param mixed $meta
 		 * @param array $field
 		 *
-		 * @return array
+		 * @return string
 		 */
-		static function normalize_field( $field )
+		static function html( $meta, $field )
 		{
-			$field = parent::normalize_field( $field );
-
-			$field['attributes']['type'] = 'url';
-
-			return $field;
+			return sprintf(
+				'<input type="url" class="rwmb-url" name="%s" id="%s" value="%s" size="%s" placeholder="%s"/>',
+				$field['field_name'],
+				$field['id'],
+				$meta,
+				$field['size'],
+				$field['placeholder']
+			);
 		}
 
 		/**

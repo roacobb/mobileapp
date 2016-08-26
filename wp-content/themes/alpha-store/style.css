@@ -4,7 +4,7 @@ Theme URI: http://themes4wp.com/theme/alpha-store/
 Author: Themes4WP
 Author URI: http://themes4wp.com
 Description: Alpha Store is a modern free WooCommerce WordPress theme especially designed for shops and eCommerce sites. It could be used for all types of ecommerce online stores, including: Fashion, Shoes, Jewelry, Watch, Sport, Technology, Mobile... Alpha Store is easy to use and fully responsive. It comes with an eye-catching layout design that will instantly draw the attention of anyone who visits your website. Theme is translation and multilinual ready. Alpha Store is SEO friendly helping you to achieve the highest positions on Google and optimized codebase to maximize your site’s performance and loading speed. The Theme Customizer is truly magaic tool to customize theme with pre-defined parameters, no coding is required. Theme is developed using CSS3 and Bootstrap with smooth HTML5 animations. Main theme features: 2 menu positions, search bar, social icons, shop by category, full width flexslider carousel with custom products, left or right sidebars, footer widget area, WooCommerce shortcodes, custom logo, custom background, ready to use SiteOrigin's, WR Page Builder or any drag and drop Page Builder which may turn your store into multipurpose business site, breadcrumbs, related posts, unlimited homepage styles, fast loading, cross-browser compatibility, font awesome, documentation with video tutorials, support, bootstrap grid layout. Theme including support for wishlist, quick view and compare plugins. Check the demo at http://demo.themes4wp.com/alpha-store/. Documentation: http://demo.themes4wp.com/documentation/ Support: http://support.themes4wp.com/
-Version: 1.1.0
+Version: 1.2.1
 License: GNU General Public License v3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: grid-layout, footer-widgets, e-commerce, one-column, two-columns, three-columns, right-sidebar, left-sidebar, custom-background, custom-menu, featured-images, theme-options, translation-ready
@@ -855,25 +855,6 @@ input, select, textarea { color: #000 }
     background-color: #4F4F4F;
     color: #FFFFFF;
 }
-/* Header Yith search form */
-.header-search-form input#yith-s {
-    padding: 10px;
-    height: 40px;
-    width: 100%;
-}
-.header-search-form input#yith-searchsubmit {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #EF0000;
-    color: #fff;
-    line-height: 20px;
-}
-.autocomplete-suggestion {
-    line-height: 24px;
-    font-size: 14px;
-    color: #000;
-}
 /* Homepage carousel */
 #carousel-home { z-index: 2 }
 #carousel-home ul.products { margin-bottom: 0 }
@@ -1148,6 +1129,9 @@ li.product-category.product .count {
     opacity: 1;
 }
 .woocommerce td.product-name dl.variation dd, .woocommerce ul.product_list_widget li dl dd { margin-bottom: 0px }
+.woocommerce a.added_to_cart {
+    display: block;
+}
 /* Single product css */
 .woocommerce div.product div.images img {
     padding: 5px;
@@ -1245,6 +1229,9 @@ input.search-field, #searchform #s {
     width: 100%;
     height: auto;
     border-radius: 0;
+    position: relative;
+}
+.searchform {
     position: relative;
 }
 form.woocommerce-product-search, .widget_search { position: relative }

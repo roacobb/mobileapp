@@ -53,6 +53,28 @@ Now you can build your homepage. Homepage is building via WooCommerce shortcodes
 
 == CHANGE LOG ==
 
+= Version 1.2.1 =
+* Fixed demo sidebar size issue
+* Fixed compare, quick view, wishlist missing translations
+* Added new theme info page with quick tips and tutorials
+* Added czech language
+
+= Version 1.2.0 =
+* Added demo front page option
+* Added 2 front page layouts
+* Updated theme info page
+* Small functions tweaks
+
+= Version 1.1.2 =
+* Fixed empty carousel
+* Removed theme info from child themes
+* Added homepage tutorial image in the theme info page
+
+= Version 1.1.1 =
+* Fixed searchform widget button position
+* Updated View cart position
+* Improved top menu, main menu and top bar functions
+
 = Version 1.1.0 =
 * Updated Font Awesome to v4.6.3
 * Updated flexslider to v2.6.1

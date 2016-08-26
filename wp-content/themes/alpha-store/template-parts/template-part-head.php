@@ -9,9 +9,9 @@
 	}
 	?> 
 	<div class="top-section row">
-		<?php if ( class_exists( 'WooCommerce' ) || has_nav_menu( 'main_menu' ) ) { ?>
+		<?php if ( class_exists( 'WooCommerce' ) && get_theme_mod( 'alpha_store_account', 1 ) == 1  || has_nav_menu( 'top_menu' ) || get_theme_mod( 'alpha_store_socials', 0 ) == 1 ) { ?>
 			<div class="container">
-				<?php if ( has_nav_menu( 'main_menu' ) ) : ?>
+				<?php // if ( has_nav_menu( 'top_menu' ) ) : ?>
 					<div class="top-infobox-menu col-sm-6">
 						<div class="rsrc-top-nav" >
 							<nav id="site-navigation-top" class="navbar navbar-inverse" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">                       
@@ -39,21 +39,19 @@
 							</nav>
 						</div>
 					</div>
-				<?php endif; ?>
-				<?php if ( class_exists( 'WooCommerce' ) ) { ?>
-					<div class="header-login text-right text-left-xs col-sm-6 no-gutter pull-right"> 
-						<?php if ( get_theme_mod( 'alpha_store_account', 1 ) == 1 ) { // Login Register  ?>
-							<?php if ( is_user_logged_in() ) { ?>
-								<a class="login-link" href="<?php echo get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ); ?>" title="<?php esc_attr_e( 'My Account', 'alpha-store' ); ?>"><?php esc_html_e( 'My Account', 'alpha-store' ); ?></a>
-							<?php } else { ?>
-								<a class="login-link" href="<?php echo get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ); ?>" title="<?php esc_attr_e( 'Login / Register', 'alpha-store' ); ?>"><?php esc_html_e( 'Login / Register', 'alpha-store' ); ?></a>
-							<?php } ?>
+				<?php // endif; ?>
+				<div class="header-login text-right text-left-xs col-sm-6 no-gutter pull-right"> 
+					<?php if ( get_theme_mod( 'alpha_store_account', 1 ) == 1 && class_exists( 'WooCommerce' ) ) { // Login Register  ?>
+						<?php if ( is_user_logged_in() ) { ?>
+							<a class="login-link" href="<?php echo get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ); ?>" title="<?php esc_attr_e( 'My Account', 'alpha-store' ); ?>"><?php esc_html_e( 'My Account', 'alpha-store' ); ?></a>
+						<?php } else { ?>
+							<a class="login-link" href="<?php echo get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ); ?>" title="<?php esc_attr_e( 'Login / Register', 'alpha-store' ); ?>"><?php esc_html_e( 'Login / Register', 'alpha-store' ); ?></a>
 						<?php } ?>
-						<?php if ( get_theme_mod( 'alpha_store_socials', 0 ) == 1 ) : ?>
-							<?php alpha_store_social_links(); ?>
-						<?php endif; ?> 
-					</div>
-				<?php } ?>
+					<?php } ?>
+					<?php if ( get_theme_mod( 'alpha_store_socials', 0 ) == 1 ) : ?>
+						<?php alpha_store_social_links(); ?>
+					<?php endif; ?> 
+				</div>
 			</div>
 		<?php } ?>
 	</div>
@@ -80,7 +78,7 @@
 				<div class="header-right-triangle" ></div>
 				</div>
 			<?php endif; ?>
-			<?php if ( has_nav_menu( 'main_menu' ) ) : ?>
+			<?php // if ( has_nav_menu( 'main_menu' ) ) : ?>
 				<div class="rsrc-top-menu col-md-12 no-gutter">
 					<nav id="site-navigation" class="navbar navbar-inverse" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
 	                    <div class="navbar-header">
@@ -105,7 +103,7 @@
 						?>
 					</nav>
 				</div>
-			<?php endif; ?>
+			<?php // endif; ?>
 		</div> 
 	</div>
 </div>

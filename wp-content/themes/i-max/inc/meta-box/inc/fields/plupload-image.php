@@ -102,9 +102,9 @@ if ( ! class_exists( 'RWMB_Plupload_Image_Field' ) )
 				$meta = ( array ) $meta;
 
 			// Filter to change the drag & drop box background string
-			$i18n_drop   = apply_filters( 'rwmb_plupload_image_drop_string', _x( 'Drop images here', 'image upload', 'meta-box' ), $field );
-			$i18n_or     = apply_filters( 'rwmb_plupload_image_or_string', _x( 'or', 'image upload', 'meta-box' ), $field );
-			$i18n_select = apply_filters( 'rwmb_plupload_image_select_string', _x( 'Select Files', 'image upload', 'meta-box' ), $field );
+			$i18n_drop   = apply_filters( 'rwmb_plupload_image_drop_string', _x( 'Drop images here', 'image upload', 'i-max' ), $field );
+			$i18n_or     = apply_filters( 'rwmb_plupload_image_or_string', _x( 'or', 'image upload', 'i-max' ), $field );
+			$i18n_select = apply_filters( 'rwmb_plupload_image_select_string', _x( 'Select Files', 'image upload', 'i-max' ), $field );
 
 			// Uploaded images
 
@@ -112,6 +112,7 @@ if ( ! class_exists( 'RWMB_Plupload_Image_Field' ) )
 			$classes = array( 'rwmb-drag-drop', 'drag-drop', 'hide-if-no-js', 'new-files' );
 			if ( ! empty( $field['max_file_uploads'] ) && count( $meta ) >= (int) $field['max_file_uploads'] )
 				$classes[] = 'hidden';
+
 
 			$html = self::get_uploaded_images( $meta, $field );
 
@@ -127,7 +128,7 @@ if ( ! class_exists( 'RWMB_Plupload_Image_Field' ) )
 				$field['id'],
 				implode( ' ', $classes ),
 				wp_create_nonce( "rwmb-upload-images_{$field['id']}" ),
-				esc_attr( wp_json_encode( $field['js_options'] ) ),
+				esc_attr( json_encode( $field['js_options'] ) ),
 				$i18n_drop,
 				$i18n_or,
 				$field['id'],
@@ -179,7 +180,7 @@ if ( ! class_exists( 'RWMB_Plupload_Image_Field' ) )
 				'urlstream_upload'    => true,
 				'filters'             => array(
 					array(
-						'title'      => _x( 'Allowed Image Files', 'image upload', 'meta-box' ),
+						'title'      => _x( 'Allowed Image Files', 'image upload', 'i-max' ),
 						'extensions' => 'jpg,jpeg,gif,png',
 					),
 				),

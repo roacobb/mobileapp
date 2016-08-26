@@ -35,9 +35,9 @@ jQuery( document ).ready( function ( $ ) {
 // Tooltip to compare and wishlist
 jQuery( document ).ready( function ( $ ) {
     $( ".compare.button" ).attr( 'data-toggle', 'tooltip' );
-    $( ".compare.button" ).attr( 'title', 'Compare Product' );
+    $( ".compare.button" ).attr( 'title', objectL10n.compare );
     $( ".yith-wcqv-button.button" ).attr( 'data-toggle', 'tooltip' );
-    $( ".yith-wcqv-button.button" ).attr( 'title', 'Quick View' );
+    $( ".yith-wcqv-button.button" ).attr( 'title', objectL10n.qview );
 } );
 // Wishlist count ajax update
 jQuery( document ).ready( function ( $ ) {
@@ -84,12 +84,12 @@ jQuery( document ).ready( function ( $ ) {
 // Header after pseudo element height fix
 jQuery( document ).ready( function ( $ ) {
     updateContainer();
-    $( window ).on('load resize', function () {
+    $( window ).resize( function () {
         updateContainer();
     } );
 } );
 function updateContainer() {
-    currentHeight = jQuery( '.header-right' ).outerHeight();
+    currentHeight = jQuery( '.header-right' ).outerHeight() + 1;
     if ( jQuery( window ).width() > 991 ) {
         jQuery( ".header-right-triangle" ).css( { "border-top-width": currentHeight } );
     }

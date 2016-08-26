@@ -26,8 +26,8 @@ function wppb_basic_info_content() {
 
 ?>
 	<div class="wrap wppb-wrap wppb-info-wrap">
-		<div class="wppb-badge <?php echo $version; ?>"><?php printf( __( 'Version %s' ), PROFILE_BUILDER_VERSION ); ?></div>
-		<h1><?php printf( __( '<strong>Profile Builder </strong>' . $version . ' <small>v.</small>%s', 'profile-builder' ), PROFILE_BUILDER_VERSION ); ?></h1>
+		<div class="wppb-badge <?php echo $version; ?>"><span><?php printf( __( 'Version %s' ), PROFILE_BUILDER_VERSION ); ?></span></div>
+		<h1><?php echo __( '<strong>Profile Builder </strong>' . $version, 'profile-builder' ); ?></h1>
 		<p class="wppb-info-text"><?php printf( __( 'The best way to add front-end registration, edit profile and login forms.', 'profile-builder' ) ); ?></p>
 		<hr />
 		<h2 class="wppb-callout"><?php _e( 'For Modern User Interaction', 'profile-builder' ); ?></h2>
@@ -91,20 +91,30 @@ function wppb_basic_info_content() {
 				<?php } else {?>
 					<p><a href="admin.php?page=manage-fields" class="button"><?php _e( 'Get started with extra fields', 'profile-builder' ); ?></a></p>
 				<?php } ?>
-				<ul>
+				<ul style="float: left; margin-right: 50px;">
 					<li><?php _e( 'Avatar Upload', 'profile-builder' ); ?></li>
 					<li><?php _e( 'Generic Uploads', 'profile-builder' ); ?></li>
 					<li><?php _e( 'Agree To Terms Checkbox', 'profile-builder' ); ?></li>
 					<li><?php _e( 'Datepicker', 'profile-builder' ); ?> </li>
+                    <li><?php _e( 'Timepicker', 'profile-builder' ); ?> </li>
+                    <li><?php _e( 'Colorpicker', 'profile-builder' ); ?> </li>
 					<li><?php _e( 'reCAPTCHA', 'profile-builder' ); ?></li>
 					<li><?php _e( 'Country Select', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Currency Select', 'profile-builder' ); ?></li>
 					<li><?php _e( 'Timezone Select', 'profile-builder' ); ?></li>
-					<li><?php _e( 'Input / Hidden Input', 'profile-builder' ); ?></li>
-					<li><?php _e( 'Checkbox', 'profile-builder' ); ?></li>
-					<li><?php _e( 'Select', 'profile-builder' ); ?></li>
-					<li><?php _e( 'Radio Buttons', 'profile-builder' ); ?></li>
-					<li><?php _e( 'Textarea', 'profile-builder' ); ?></li>
 				</ul>
+
+                <ul style="float: left;">
+                    <li><?php _e( 'Input / Hidden Input', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Number', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Checkbox', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Select', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Radio Buttons', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Textarea', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Validation', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'Map', 'profile-builder' ); ?></li>
+                    <li><?php _e( 'HTML', 'profile-builder' ); ?></li>
+                </ul>
 			</div>
 			<div>
 				<img src="<?php echo WPPB_PLUGIN_URL; ?>assets/images/pb_fields.png" alt="Profile Builder Extra Fields" class="wppb-fields-image" />
@@ -156,7 +166,7 @@ function wppb_basic_info_content() {
 		<hr/>
 		<div class="wrap wppb-wrap wppb-1-3-col">
 			<div>
-				<a href="<?php echo admin_url('options.php?page=profile-builder-pms-promo'); ?>"><img src="<?php echo plugins_url( '../assets/images/basic_info_pms_cross_promo.png', __FILE__ ); ?>" alt="paid member subscriptions"/></a>
+				<a href="<?php echo admin_url('options.php?page=profile-builder-pms-promo'); ?>"><img src="<?php echo plugins_url( '../assets/images/pb-pms-cross-promotion.png', __FILE__ ); ?>" alt="paid member subscriptions"/></a>
 			</div>
 			<div>
 				<h3>Paid user profiles with Profile Builder and Paid Member Subscriptions</h3>

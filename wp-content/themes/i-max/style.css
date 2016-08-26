@@ -3,11 +3,11 @@ Theme Name: i-max
 Theme URI: http://www.templatesnext.org/imax/
 Author: templatesnext team
 Author URI: http://templatesnext.org/
-Description: i-max is a responsive, retina ready multipurpose WordPress theme for business, portfolio, personal or blog websites. i-max is packed with many premium features like boxed/wide layout, unlimited color, custom background, multiple blog layout, social media links, custom slider and much more. i-max also comes with a plugin “TemplatesNext Toolkit” to give you power to create your own layout using rows and columns, services, multiple style of portfolio, custom blog/post/news layout, testimonial, call to act etc. it also lets you add post and portfolio carousels.
-Version: 1.1.6
+Description: i-max is a responsive, retina ready multipurpose WordPress theme for business, portfolio, personal or blogs. i-max is packed with many premium features like boxed/wide layout, unlimited color, custom background, multiple blog layout, social media links, custom slider and much more. i-max also comes with a plugin “TemplatesNext Toolkit” to give you power to create your own layout using rows and columns, services, multiple style of portfolio, custom blog/post/news layout, testimonial, call to act etc. it also lets you add custom recent post listing, carousel and portfolio carousels. Video tutorials available at : http://templatesnext.org/imax/?page_id=659 and https://www.youtube.com/watch?v=b0cqdFTwmm8
+Version: 1.1.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: Green,Light,Fixed-Layout,Fluid-Layout,Responsive-Layout,One-Column,Two-Columns,Right-Sidebar,Custom-Colors,Custom-Menu,Featured-Image-Header,Featured-Images,Flexible-Header,Full-Width-Template,Microformats,Post-Formats,Sticky-Post,Theme-Options,Threaded-Comments,Translation-Ready,Holiday,Photoblogging,Seasonal
+Tags: One-Column,Two-Columns,Right-Sidebar,Custom-Colors,Custom-Menu,Featured-Image-Header,Featured-Images,Flexible-Header,Full-Width-Template,Microformats,Post-Formats,Sticky-Post,Theme-Options,Threaded-Comments,Translation-Ready,Holiday
 Text Domain: i-max
 
 imax WordPress Theme, Copyright 2015 TemplatesNext.org
@@ -1412,17 +1412,15 @@ ul.nav-container ul a:hover,
 .sldprev,
 .ibanner .da-slider .owl-prev {
 	display: block;
-	height: 48px;
-	width: 36px;
+	height: 56px;
+	width: 32px;
 	background-color: rgba(0,0,0,0.5);
 	position: absolute;
-	left: -36px;
+	left: -32px;
 	top: 0px;
 	border-radius: 0px;
-	border-bottom-right-radius: 4px;
-	border-top-right-radius: 4px;
 	color: #999;
-	line-height: 48px;
+	line-height: 56px;
 	z-index: 101;
 	transition-property: all;
 	transition-duration: 0.3s;
@@ -1433,17 +1431,15 @@ ul.nav-container ul a:hover,
 .sldnext,
 .ibanner .da-slider .owl-next {
 	display: block;
-	height: 48px;
-	width: 36px;
+	height: 56px;
+	width: 32px;
 	background-color: rgba(0,0,0,0.5);
 	position: absolute;
-	right: -36px;
+	right: -32px;
 	top: 0px;
 	border-radius: 0px;	
-	border-bottom-left-radius: 4px;
-	border-top-left-radius: 4px;
 	color: #999;
-	line-height: 48px;
+	line-height: 56px;
 	z-index: 101;
 	transition-property: all;
 	transition-duration: 0.3s;
@@ -1453,7 +1449,7 @@ ul.nav-container ul a:hover,
 
 .ibanner .da-slider .owl-next span.genericon:before,
 .ibanner .da-slider .owl-prev span.genericon:before {
-	line-height: 48px;
+	line-height: 56px;
 }
 
 .da-arrows{
@@ -4059,7 +4055,31 @@ nav.navigation .nav-links a:visited {
 	height: 120px;
 }
 
+/*
+* Theme colored topbar
 
+
+.utilitybar {
+	background-color: #dd3333;
+	color: #FFF;
+	border-bottom-color: #dd3333;
+}
+
+.topphone,
+.topphone .topbarico {
+	color: #FFF;
+}
+
+.socialicons ul.social li a .socico {
+	background-color: rgba(255,255,255,0.2);
+	color: #eee;
+}
+
+.socialicons ul.social li a:hover .socico:hover {
+	background-color: #fff;
+	color: #dd3333;
+}
+*/
 /**
  * 12.0 Media Queries
  * ----------------------------------------------------------------------------
@@ -4214,6 +4234,7 @@ nav.navigation .nav-links a:visited {
 	.site-content .post .meta-img.no-image-meta+.post-mainpart .entry-header {
 		/* width: calc(100% - 96px); */
 		padding-left: 80px;
+		margin-top: -8px;
 	}
 	.site-content .entry-thumbnail .stickyonimg,
 	.site-content .entry-thumbnail .dateonimg {

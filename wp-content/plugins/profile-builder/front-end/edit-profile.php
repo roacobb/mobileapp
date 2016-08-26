@@ -75,7 +75,7 @@ function wppb_front_end_profile_info( $atts ){
 	}
 	$redirect_url = apply_filters( 'wppb_after_edit_profile_redirect_url', $redirect_url );
 
-	global $$form_name;
+	global ${$form_name};
 
     $$form_name = new Profile_Builder_Form_Creator( array( 'form_type' => 'edit_profile', 'form_name' => $form_name, 'redirect_url' => $redirect_url, 'redirect_priority' => $redirect_priority ) );
 

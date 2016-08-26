@@ -18,7 +18,7 @@ function wppb_yim_handler( $output, $form_location, $field, $user_id, $field_che
 		if ( array_key_exists( $field['id'], $field_check_errors ) )
 			$error_mark = '<img src="'.WPPB_PLUGIN_URL.'assets/images/pencil_delete.png" title="'.wppb_required_field_error($field["field-title"]).'"/>';
 
-		$extra_attr = apply_filters( 'wppb_extra_attribute', '', $field );
+		$extra_attr = apply_filters( 'wppb_extra_attribute', '', $field, $form_location );
 
         $output = '
 			<label for="yim">'.$item_title.$error_mark.'</label>

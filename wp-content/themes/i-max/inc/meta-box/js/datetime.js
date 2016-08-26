@@ -6,7 +6,7 @@ jQuery( function ( $ )
 	 * Update datetime picker element
 	 * Used for static & dynamic added elements (when clone)
 	 */
-	function update()
+	function rwmb_update_datetime_picker()
 	{
 		var $this = $( this ),
 			options = $this.data( 'options' );
@@ -16,16 +16,6 @@ jQuery( function ( $ )
 
 	}
 
-	// Set language if available
-	if ( $.timepicker.regional.hasOwnProperty( RWMB_Datetimepicker.locale ) )
-	{
-		$.timepicker.setDefaults( $.timepicker.regional[RWMB_Datetimepicker.locale] );
-	}
-	else if ( $.timepicker.regional.hasOwnProperty( RWMB_Datetimepicker.localeShort ) )
-	{
-		$.timepicker.setDefaults( $.timepicker.regional[RWMB_Datetimepicker.localeShort] );
-	}
-
-	$( ':input.rwmb-datetime' ).each( update );
-	$( '.rwmb-input' ).on( 'clone', ':input.rwmb-datetime', update );
+	$( ':input.rwmb-datetime' ).each( rwmb_update_datetime_picker );
+	$( '.rwmb-input' ).on( 'clone', ':input.rwmb-datetime', rwmb_update_datetime_picker );
 } );

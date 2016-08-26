@@ -18,7 +18,7 @@ function wppb_username_handler( $output, $form_location, $field, $user_id, $fiel
 		
 		$readonly = ( ( $form_location == 'edit_profile' ) ? ' disabled="disabled"' : '' );
 
-		$extra_attr = apply_filters( 'wppb_extra_attribute', '', $field );
+		$extra_attr = apply_filters( 'wppb_extra_attribute', '', $field, $form_location );
 
         $output = '
 			<label for="username">'.$item_title.$error_mark.'</label>

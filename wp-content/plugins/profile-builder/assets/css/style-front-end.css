@@ -50,6 +50,7 @@
 	padding: 0;
 }
 .wppb-user-forms input[type="text"],
+.wppb-user-forms input[type="number"],
 .wppb-user-forms input[type="email"],
 .wppb-user-forms input[type="url"],
 .wppb-user-forms input[type="password"],
@@ -60,6 +61,7 @@
 	border-radius: 3px;
 }
 .wppb-user-forms input[type="text"]:focus,
+.wppb-user-forms input[type="number"]:focus,
 .wppb-user-forms input[type="email"]:focus,
 .wppb-user-forms input[type="url"]:focus,
 .wppb-user-forms input[type="password"]:focus,
@@ -68,6 +70,7 @@
 	color: #111;
 }
 .wppb-user-forms input[type="text"],
+.wppb-user-forms input[type="number"],
 .wppb-user-forms input[type="email"],
 .wppb-user-forms input[type="url"],
 .wppb-user-forms input[type="password"],
@@ -120,6 +123,11 @@
 .wppb-search-users-wrap{
     margin-bottom: 20px;
 }
+
+.wppb-user-forms .extra_field_heading {
+    margin-bottom: 0;
+}
+
 /*--------------------------------------------------------------
 3.0 Alignments
 --------------------------------------------------------------*/
@@ -164,7 +172,7 @@
 	min-height:1px;
 }
 .wppb-form-field input,
-.wppb-form-field input[type="text"], .wppb-form-field input[type="email"], .wppb-form-field input[type="url"], .wppb-form-field input[type="password"], .wppb-form-field input[type="search"],
+.wppb-form-field input[type="text"], .wppb-form-field input[type="number"], .wppb-form-field input[type="email"], .wppb-form-field input[type="url"], .wppb-form-field input[type="password"], .wppb-form-field input[type="search"],
 .wppb-form-field select,
 .wppb-form-field textarea,
 .wppb-checkboxes,

@@ -94,7 +94,7 @@ function wppb_pms_cross_promo() {
 					<div class="plugin-card wppb-recommended-plugin wppb-add-on" style="width: 111%;">
 						<div class="plugin-card-top">
 							<a target="_blank" href="http://wordpress.org/plugins/paid-member-subscriptions/">
-								<img src="<?php echo plugins_url( '../assets/images/pms_recommended.jpg', __FILE__ ); ?>" width="100%">
+								<img src="<?php echo plugins_url( '../assets/images/pms-recommended.png', __FILE__ ); ?>" width="100%">
 							</a>
 							<h3 class="wppb-add-on-title">
 								<a target="_blank" href="http://wordpress.org/plugins/paid-member-subscriptions/">Paid Member Subscriptions</a>

@@ -3,6 +3,15 @@
 $wppb_generalSettings = get_option('wppb_general_settings', 'not_found' );
 if ( ( $wppb_generalSettings != 'not_found' ) && ( $wppb_generalSettings['loginWith'] != 'email' ) )
 	include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/username/username.php' );
+else{
+	add_filter( 'wppb_output_display_form_field', 'wppb_remove_username_field_when_login_with_email', 10, 5 );
+	function wppb_remove_username_field_when_login_with_email( $bool, $field, $form_type, $role, $user_id ){
+		if( $field['field'] == 'Default - Username'  )
+			return false;
+
+		return $bool;
+	}
+}
 	
 include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/first-name/first-name.php' );
 include_once( WPPB_PLUGIN_DIR.'/front-end/default-fields/last-name/last-name.php' );

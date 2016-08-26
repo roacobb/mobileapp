@@ -2,20 +2,11 @@ jQuery( function ( $ )
 {
 	'use strict';
 
-	/**
-	 * Show color pickers
-	 * @return void
-	 */
-	function initColorPicker()
+	function rwmb_update_color_picker()
 	{
 		var $this = $( this ),
-			$container = $this.closest( '.rwmb-color-clone' );
-
-		// Clone doesn't have input for color picker, we have to add the input and remove the color picker container
-		if ( $container.length > 0 )
-		{
-			$this.appendTo( $container ).siblings( '.wp-picker-container' ).remove();
-		}
+			$clone_container = $this.closest( '.rwmb-clone' ),
+			$color_picker = $this.siblings( '.rwmb-color-picker' );
 
 		// Make sure the value is displayed
 		if ( !$this.val() )
@@ -23,10 +14,31 @@ jQuery( function ( $ )
 			$this.val( '#' );
 		}
 
-		// Show color picker
-		$this.wpColorPicker( $this.data( 'options' ) );
+		if ( typeof $.wp === 'object' && typeof $.wp.wpColorPicker === 'function' )
+		{
+			if ( $clone_container.length > 0 )
+			{
+				$this.appendTo( $clone_container ).siblings( 'div.wp-picker-container' ).remove();
+			}
+			$this.wpColorPicker();
+		}
+		else
+		{
+			//We use farbtastic if the WordPress color picker widget doesn't exist
+			$color_picker.farbtastic( $this );
+		}
 	}
 
-	$( ':input.rwmb-color' ).each( initColorPicker );
-	$( '.rwmb-input' ).on( 'clone', 'input.rwmb-color', initColorPicker );
+	$( ':input.rwmb-color' ).each( rwmb_update_color_picker );
+	$( '.rwmb-input' )
+		.on( 'clone', ':input.rwmb-color', rwmb_update_color_picker )
+		.on( 'focus', '.rwmb-color', function ()
+		{
+			$( this ).siblings( '.rwmb-color-picker' ).show();
+			return false;
+		} ).on( 'blur', '.rwmb-color', function ()
+		{
+			$( this ).siblings( '.rwmb-color-picker' ).hide();
+			return false;
+		} );
 } );

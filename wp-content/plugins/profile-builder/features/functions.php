@@ -162,9 +162,9 @@ function wppb_mail( $to, $subject, $message, $message_from, $context = null ) {
 	$to = apply_filters( 'wppb_send_email_to', $to );
 	$send_email = apply_filters( 'wppb_send_email', true, $to, $subject, $message, $context );
 
-	$message = apply_filters( 'wppb_email_message', $message );
+	$message = apply_filters( 'wppb_email_message', $message, $context );
 
-	do_action( 'wppb_before_sending_email', $to, $subject, $message, $send_email );
+	do_action( 'wppb_before_sending_email', $to, $subject, $message, $send_email, $context );
 	
 	if ( $send_email ) {
 		//we add this filter to enable html encoding
@@ -172,7 +172,7 @@ function wppb_mail( $to, $subject, $message, $message_from, $context = null ) {
 
 		$sent = wp_mail( $to , $subject, $message );
 
-		do_action( 'wppb_after_sending_email', $sent, $to, $subject, $message, $send_email );
+		do_action( 'wppb_after_sending_email', $sent, $to, $subject, $message, $send_email, $context );
 
 		return $sent;
 	}
@@ -217,7 +217,7 @@ $args = array(
 			'page_type'		=> 'menu_page',
 			'position' 		=> '70,69',
 			'priority' 		=> 1,
-			'icon_url' 		=> WPPB_PLUGIN_URL . 'assets/images/pb_menu_icon.png'
+			'icon_url' 		=> WPPB_PLUGIN_URL . 'assets/images/pb-menu-icon.png'
 		);
 new WCK_Page_Creator_PB( $args );
 
@@ -621,6 +621,37 @@ function wppb_required_field_error($field_title='') {
     return $required_error;
 
 }
+
+/**
+ * Function that returns a certain field (from manage_fields) by a given id or meta_name
+ */
+function wppb_get_field_by_id_or_meta( $id_or_meta ){
+
+    $id = 0;
+    $meta = '';
+
+    if ( is_numeric($id_or_meta) )
+        $id = $id_or_meta;
+    else
+        $meta = $id_or_meta;
+
+    $fields = get_option('wppb_manage_fields', 'not_found');
+
+    if ($fields != 'not_found') {
+
+        foreach ($fields as $key => $field) {
+            if ( (!empty($id)) && ($field['id'] == $id) )
+                return $field;
+            if ( (!empty($meta)) && ($field['meta-name'] == $meta) )
+                return $field;
+        }
+
+    }
+
+    return '';
+}
+
+
 /* Function for displaying reCAPTCHA error on Login and Recover Password forms */
 function wppb_recaptcha_field_error($field_title='') {
     $recaptcha_error = apply_filters('wppb_recaptcha_error' , __('Please enter a (valid) reCAPTCHA value','profile-builder') , $field_title);
@@ -640,21 +671,21 @@ function wppb_get_query_var( $varname ){
     return apply_filters( 'wppb_get_query_var_'.$varname, get_query_var( $varname ) );
 }
 
-/*Filter the "Save Changes" button text, to make it translatable*/
+/* Filter the "Save Changes" button text, to make it translatable */
 function wppb_change_save_changes_button($value){
     $value = __('Save Changes','profile-builder');
     return $value;
 }
 add_filter( 'wck_save_changes_button', 'wppb_change_save_changes_button', 10, 2);
 
-/*Filter the "Cancel" button text, to make it translatable*/
+/* Filter the "Cancel" button text, to make it translatable */
 function wppb_change_cancel_button($value){
     $value = __('Cancel','profile-builder');
     return $value;
 }
 add_filter( 'wck_cancel_button', 'wppb_change_cancel_button', 10, 2);
 
-/*Filter the "Delete" button text, to make it translatable*/
+/* ilter the "Delete" button text, to make it translatable */
 function wppb_change_delete_button($value){
     $value = __('Delete','profile-builder');
     return $value;
@@ -727,3 +758,95 @@ function wppb_get_date_by_timezone() {
 
 	return $wppb_get_date;
 }
+
+/**
+ * Add HTML tag 'required' to fields
+ *
+ * Add HTML tag 'required' for each field if the field is required. For browsers that don't support this HTML tag, we will still have the fallback.
+ * Field type 'Checkbox' is explicitly excluded because there is no HTML support to check if at least one option is selected.
+ * Other fields excluded are Avatar, Upload, Heading, ReCaptcha, WYSIWYG, Map.
+ *
+ * @since
+ *
+ * @param string $extra_attributes Extra attributes attached to the field HTML tag.
+ * @param array $field Field description.
+ * @return string $extra_attributes
+ */
+function wppb_add_html_tag_required_to_fields( $extra_attributes, $field, $form_location ) {
+	if ( $field['field'] != "Checkbox" && isset( $field['required'] ) && $field['required'] == 'Yes' ){
+		if( !( ( $field['field'] == "Default - Password" || $field['field'] == "Default - Repeat Password" ) && $form_location == 'edit_profile' ) )
+			$extra_attributes .= ' required ';
+	}
+	return $extra_attributes;
+}
+add_filter( 'wppb_extra_attribute', 'wppb_add_html_tag_required_to_fields', 10, 3 );
+
+/**
+ * Add HTML tag 'required' to WooCommerce fields
+ *
+ * Add HTML tag 'required' for each WooCommerce field if the field is required. For browsers that don't support this HTML tag, we will still have the fallback.
+ * Does not work on 'State / County' field, if it becomes required later depending on the Country Value
+ *
+ * @since
+ *
+ * @param string $extra_attributes Extra attributes attached to the field HTML tag.
+ * @param array $field Field description.
+ * @return string $extra_attributes
+ */
+function wppb_add_html_tag_required_to_woo_fields( $extra_attributes, $field ) {
+	if ( isset( $field['required'] ) && $field['required'] == 'Yes' ){
+		$extra_attributes .= ' required ';
+	}
+	return $extra_attributes;
+}
+add_filter( 'wppb_woo_extra_attribute', 'wppb_add_html_tag_required_to_woo_fields', 10, 2 );
+
+
+/**
+ * Add jQuery script to remove required attribute for hidden fields
+ *
+ * If a field is hidden dynamically via conditional fields or WooSync 'Ship to a different address' checkbox, then the required field needs to be removed.
+ * If a field is made visible again, add the required field back again.
+ *
+ * @since
+ *
+ * @param string $extra_attributes Extra attributes attached to the field HTML tag.
+ * @param array $field Field description.
+ * @return string $extra_attributes
+ */
+function wppb_manage_required_attribute() {
+	global $wppb_shortcode_on_front;
+	if ($wppb_shortcode_on_front) {
+		?>
+		<script type="text/javascript">
+			jQuery("*").on( "wppbAddRequiredAttributeEvent", wppbAddRequired );
+			function wppbAddRequired(event) {
+				if( jQuery( this ).attr( "temprequired" ) ){
+					jQuery( this ).removeAttr( "temprequired" );
+					jQuery( this ).attr( "required", "required" );
+				}
+			}
+
+			jQuery("*").on( "wppbRemoveRequiredAttributeEvent", wppbRemoveRequired );
+			function wppbRemoveRequired(event) {
+				if ( jQuery( this ).attr( "required" ) ) {
+					jQuery(this).removeAttr( "required" );
+					jQuery(this).attr( "temprequired", "temprequired" );
+				}
+			}
+
+			jQuery("*").on( "wppbToggleRequiredAttributeEvent", wppbToggleRequired );
+			function wppbToggleRequired(event) {
+				if ( jQuery( this ).attr( "required" ) ) {
+					jQuery(this).removeAttr( "required" );
+					jQuery(this).attr( "temprequired", "temprequired" );
+				}else if( jQuery( this ).attr( "temprequired" ) ){
+					jQuery( this ).removeAttr( "temprequired" );
+					jQuery( this ).attr( "required", "required" );
+				}
+			}
+		</script>
+		<?php
+	}
+}
+add_action( 'wp_footer', 'wppb_manage_required_attribute' );

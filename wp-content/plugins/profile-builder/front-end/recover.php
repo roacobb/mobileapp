@@ -154,8 +154,9 @@ function wppb_front_end_password_recovery(){
 
 	// If the user entered an email/username, process the request
 	if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POST['action'] == 'recover_password' && wp_verify_nonce($_POST['password_recovery_nonce_field'],'verify_true_password_recovery') ) {
-
-		$postedData = $_POST['username_email'];	//we get the raw data
+		// filter must be applied on the $_POST variable so that the value returned to the form can be corrected too
+		$_POST['username_email'] = apply_filters( 'wppb_before_processing_email_from_forms', $_POST['username_email'] );	//we get the raw data
+		$postedData = $_POST['username_email'];
 		//check to see if it's an e-mail (and if this is valid/present in the database) or is a username
 
 
@@ -318,7 +319,7 @@ function wppb_front_end_password_recovery(){
 
 ?>
 
-	<div class="wppb_holder" id="wppb-recover-password">
+	<div class="wppb_holder" id="wppb-recover-password-container">
 
 <?php
 			// use this action hook to add extra content before the password recovery form

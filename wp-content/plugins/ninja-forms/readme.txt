@@ -2,8 +2,8 @@
 Contributors: wpninjasllc, kstover, jameslaws, wpnzach, kbjohnson90, aman086, daveshine, mordauk, bftrick, helgatheviking
 Tags: form, forms, contact form, custom form, form builder, form creator, form manager, form creation, contact forms, custom forms, forms builder, forms creator, forms manager, forms creation, form administration,
 Requires at least: 4.3
-Tested up to: 4.5.3
-Stable tag: 2.9.54
+Tested up to: 4.6
+Stable tag: 2.9.56.2
 License: GPLv2 or later
 
 Create forms and manage submissions easily with a simple drag and drop interface. Contact forms, subscription forms, or any other form for WordPress.
@@ -97,13 +97,56 @@ For help and video tutorials, please visit our website: [Ninja Forms Documentati
 
 == Upgrade Notice ==
 
-= 2.9.54 (27 July 2016) =
+= 2.9.56.2 (17 August 2016) =
+
+*Changes:*
+
+* Update localized add-on listings for upgrade checks.
 
 *Bugs:*
 
-* Fixed a bug with a broken php tag.
+* Fixed a bug with form builder styling in WordPress v4.6.
 
 == Changelog ==
+
+= 2.9.56.1 (17 August 2016) =
+
+*Bugs:*
+
+* Add missing JS api method for addon compatibility.
+
+= 2.9.56 (16 August 2016) =
+
+*Changes:*
+
+* Add a filter for the forms list table.
+* Wrap the Mask JS library is a document ready call.
+* Removed an unnecessary transient.
+* Updated conversion to THREE for new credit card fields.
+* Update the country field to use a shared list of country options.
+* Internationalize templates and messages in JavaScript for THREE.
+* Change the THREE filed drawer to default to click-to-add.
+* Hide the form display when 're-starting' a form submission after redirect.
+
+*Bugs:*
+
+* Fixed some CSS issues with error messages and checkboxes.
+* Fixed a bug with downloading submissions.
+* Fixed a bug with importing forms and associated field IDs.
+* Fixed a bug with textarea encoding in submissions. [credit clifgriffin]
+* Fixed a bug with un-serializing form data on install. [credit todeveni]
+
+= 2.9.55 (02 August 2016) =
+
+*Changes:*
+
+* Remove Freemius integration.
+* Update when capability filters trigger.
+
+*Bugs:*
+
+* Fixed a bug with required list fields.
+* Fixed a bug with an undefined variable.
 
 = 2.9.54 (27 July 2016) =
 

@@ -2,13 +2,15 @@
 
 /**
  * Kirki Advanced Customizer
- * This is a sample configuration file to demonstrate all fields & capabilities.
+ * 
  * @package alpha-store
  */
-// Early exit if Kirki is not installed
+// Early exit if Kirki is not installed.
 if ( !class_exists( 'Kirki' ) ) {
 	return;
 }
+load_theme_textdomain( 'alpha-store', get_template_directory().'/languages' );
+
 /* Register Kirki config */
 Kirki::add_config( 'alpha_store_settings', array(
 	'capability'	 => 'edit_theme_options',
@@ -18,6 +20,12 @@ Kirki::add_config( 'alpha_store_settings', array(
 /**
  * Add sections
  */
+if ( class_exists( 'WooCommerce' ) && get_option( 'show_on_front' ) != 'page' ) {
+	Kirki::add_section( 'alpha_store_woo_demo_section', array(
+		'title'		 => __( 'WooCommerce Homepage Demo', 'alpha-store' ),
+		'priority'	 => 10,
+	) );
+}
 Kirki::add_section( 'alpha_store_sidebar_section', array(
 	'title'			 => __( 'Sidebars', 'alpha-store' ),
 	'priority'		 => 10,
@@ -47,6 +55,100 @@ Kirki::add_section( 'alpha_store_links_section', array(
 	'priority'	 => 190,
 ) );
 
+/**
+ * Add fields
+ */
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'			 => 'switch',
+	'settings'		 => 'demo_front_page',
+	'label'			 => __( 'Enable Demo Homepage?', 'alpha-store' ),
+	'description'	 => sprintf( __( 'When the theme is first installed and WooCommerce plugin activated, the demo mode would be turned on. This will display some sample/example content to show you how the website can be possibly set up. When you are comfortable with the theme options, you should turn this off. You can create your own unique homepage - Check the %s page for more informations.', 'alpha-store' ), '<a href="' . admin_url( 'themes.php?page=alpha-store' ) . '"><strong>' . __( 'Theme info', 'alpha-store' ) . '</strong></a>' ),
+	'section'		 => 'alpha_store_woo_demo_section',
+	'default'		 => 1,
+	'priority'		 => 10,
+) );
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'				 => 'radio-buttonset',
+	'settings'			 => 'front_page_demo_style',
+	'label'				 => esc_html__( 'Homepage Demo Styles', 'alpha-store' ),
+	'description'		 => sprintf( __( 'The demo homepage is enabled. You can choose from some predefined layouts or make your own %s.', 'alpha-store' ), '<a href="' . admin_url( 'themes.php?page=alpha-store' ) . '"><strong>' . __( 'custom homepage template', 'alpha-store' ) . '</strong></a>' ),
+	'section'			 => 'alpha_store_woo_demo_section',
+	'default'			 => 'style-one',
+	'priority'			 => 10,
+	'choices'			 => array(
+		'style-one'	 => __( 'Layout one', 'alpha-store' ),
+		'style-two'	 => __( 'Layout two', 'alpha-store' ),
+	),
+	'active_callback'	 => array(
+		array(
+			'setting'	 => 'demo_front_page',
+			'operator'	 => '==',
+			'value'		 => 1,
+		),
+	),
+) );
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'				 => 'switch',
+	'settings'			 => 'front_page_demo_carousel',
+	'label'				 => __( 'Homepage Carousel', 'alpha-store' ),
+	'description'		 => esc_html__( 'Enable or disable demo homepage carousel with random products.', 'alpha-store' ),
+	'section'			 => 'alpha_store_woo_demo_section',
+	'default'			 => 1,
+	'priority'			 => 10,
+	'active_callback'	 => array(
+		array(
+			'setting'	 => 'demo_front_page',
+			'operator'	 => '==',
+			'value'		 => 1,
+		),
+	),
+) );
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'				 => 'custom',
+	'settings'			 => 'demo_page_intro_widgets',
+	'label'				 => __( 'Homepage Widgets', 'alpha-store' ),
+	'section'			 => 'alpha_store_woo_demo_section',
+	'description'		 => esc_html__( 'You can set your own widgets. Go to Appearance - Widgets and drag and drop your widgets to "Homepage Sidebar" area.', 'alpha-store' ),
+	'priority'			 => 10,
+	'active_callback'	 => array(
+		array(
+			'setting'	 => 'demo_front_page',
+			'operator'	 => '==',
+			'value'		 => 1,
+		),
+	),
+) );
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'				 => 'custom',
+	'settings'			 => 'demo_page_intro',
+	'label'				 => __( 'Products', 'alpha-store' ),
+	'section'			 => 'alpha_store_woo_demo_section',
+	'description'		 => esc_html__( 'If you dont see any products or categories on your homepage, you dont have any products probably. Create some products and categories first.', 'alpha-store' ),
+	'priority'			 => 10,
+	'active_callback'	 => array(
+		array(
+			'setting'	 => 'demo_front_page',
+			'operator'	 => '==',
+			'value'		 => 1,
+		),
+	),
+) );
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'				 => 'custom',
+	'settings'			 => 'demo_dummy_content',
+	'label'				 => __( 'Need Dummy Products?', 'alpha-store' ),
+	'section'			 => 'alpha_store_woo_demo_section',
+	'description'		 => sprintf( esc_html__( 'When the theme is first installed, you dont have any products probably. You can easily import dummy products with only few clicks. Check %s tutorial.', 'alpha-store' ), '<a href="' . esc_url( 'https://docs.woocommerce.com/document/importing-woocommerce-dummy-data/' ) . '" target="_blank"><strong>' . __( 'THIS', 'alpha-store' ) . '</strong></a>' ),
+	'priority'			 => 10,
+) );
+Kirki::add_field( 'alpha_store_settings', array(
+	'type'				 => 'custom',
+	'settings'			 => 'demo_pro_features',
+	'label'				 => __( 'Need More Features?', 'alpha-store' ),
+	'section'			 => 'alpha_store_woo_demo_section',
+	'description'		 => '<a href="' . esc_url( 'http://themes4wp.com/product/alpha-store-pro/' ) . '" target="_blank" class="button button-primary">' . sprintf( esc_html__( 'Learn more about %s PRO', 'alpha-store' ), 'Alpha Store' ) . '</a>',
+	'priority'			 => 10,
+) );
 
 Kirki::add_field( 'alpha_store_settings', array(
 	'type'			 => 'switch',
@@ -255,9 +357,9 @@ foreach ( $theme_links as $theme_link ) {
 
 function alpha_store_configuration() {
 
-	$config[ 'color_back' ]		= '#192429';
-	$config[ 'color_accent' ]	= '#00a0d2';
-	$config[ 'width' ]			= '25%';
+	$config[ 'color_back' ]		 = '#192429';
+	$config[ 'color_accent' ]	 = '#00a0d2';
+	$config[ 'width' ]			 = '25%';
 
 	return $config;
 }

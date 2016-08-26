@@ -218,16 +218,6 @@ function imax_custom_setting( $controls ) {
 		'priority'    => 1,
 	);	
 	
-    $controls[] = array(
-        'type'     => 'text',
-        'setting'  => 'banner_text',
-        'label'    => __( 'Banner Text', 'i-max' ),
-        'section'  => 'basic',
-        'default'  => 'Banner Text Here',
-        'priority' => 1,
-		'description' => __( 'if you are using a logo and want your site title or slogan to appear on the header banner', 'i-max' ),		
-    );	
-	
 	$controls[] = array(
 		'type'        => 'color',
 		'setting'     => 'primary_color',
@@ -364,7 +354,7 @@ function imax_custom_setting( $controls ) {
     $controls[] = array(
         'type'     => 'text',
         'setting'  => 'itrans_social_pinterest',
-        'label'    => __( 'Pinterest', 'i-excel' ),
+        'label'    => __( 'Pinterest', 'i-max' ),
         'section'  => 'social',
         'default'  => '#',
         'priority' => 1,
@@ -373,7 +363,7 @@ function imax_custom_setting( $controls ) {
     $controls[] = array(
         'type'     => 'text',
         'setting'  => 'itrans_social_linkedin',
-        'label'    => __( 'Linkedin', 'i-excel' ),
+        'label'    => __( 'Linkedin', 'i-max' ),
         'section'  => 'social',
         'default'  => '#',
         'priority' => 1,
@@ -400,8 +390,8 @@ function imax_custom_setting( $controls ) {
 	$controls[] = array(
 		'type'        => 'switch',
 		'setting'     => 'itrans_sliderparallax',
-		'label'       => __( 'Parallax Effect', 'i-craft' ),
-		'description' => __( 'Turn ON/OFF Parallax Effect', 'i-craft' ),
+		'label'       => __( 'Parallax Effect', 'i-max' ),
+		'description' => __( 'Turn ON/OFF Parallax Effect', 'i-max' ),
 		'section'     => 'slidersettings',
 		'default'     => 1,			
 		'priority'    => 4,
@@ -590,18 +580,29 @@ function imax_custom_setting( $controls ) {
 		'default'     => 0,
 		'priority'    => 1,
 	);	
-	/*
+	
+	
     $controls[] = array(
         'type'     => 'text',
         'setting'  => 'blogslide_scode',
         'label'    => __( 'Other Slider Shortcode', 'i-max' ),
         'section'  => 'blogpage',
         'default'  => '',
-		'description' => __( 'Enter a 3rd party slider shortcode, ex. meta slider, smart slider 2, wow slider, etc.', 'i-max' ),
+		'description' => __( 'Enter itrans slider shortcode or a 3rd party slider shortcode, ex. meta slider, smart slider 2, wow slider, etc.', 'i-max' ),
         'priority' => 2,
     );
 	
-
+    $controls[] = array(
+        'type'     => 'text',
+        'setting'  => 'banner_text',
+        'label'    => __( 'Banner Text', 'i-max' ),
+        'section'  => 'blogpage',
+        'default'  => 'Welcome To '.get_bloginfo( 'name', 'display' ),
+        'priority' => 3,
+		'description' => __( 'if you are using a logo and want your site title or slogan to appear on the header banner', 'i-max' ),		
+    );		
+	
+	/*
 	
 	
 	// Off
@@ -618,12 +619,41 @@ function imax_custom_setting( $controls ) {
 	*/
 	// promos
 	$controls[] = array(
-		'type' => 'promo',
-		'setting' => 'custompromo',
+		'type'        => 'custom',
+		'settings'    => 'custom_demo',
 		'label' => __( 'TemplatesNext Promo', 'i-max' ),
-		'section' => 'nxpromo',
+		'section'     => 'nxpromo',
+		'default'	  => '<div class="promo-box">
+        <div class="promo-2">
+        	<div class="promo-wrap">
+                <a href="http://templatesnext.org/ispirit/landing/" target="_blank">Go Premium</a>  			
+            	<a href="http://templatesnext.org/imax/" target="_blank">i-max Demo</a>
+                <a href="https://www.facebook.com/templatesnext" target="_blank">Facebook</a> 
+                <a href="http://templatesnext.org/ispirit/landing/forums/" target="_blank">Support</a>                                 
+                <!-- <a href="http://templatesnext.org/imax/docs">Documentation</a> -->
+                <a href="https://wordpress.org/support/view/theme-reviews/i-max#postform" target="_blank">Rate i-max</a>                
+                <div class="donate">                
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="M2HN47K2MQHAN">
+                    <table>
+                    <tr><td><input type="hidden" name="on0" value="If you like my work, you can buy me">If you like my work, you can buy me</td></tr><tr><td><select name="os0">
+                        <option value="a cup of coffee">1 cup of coffee $10.00 USD</option>
+                        <option value="2 cup of coffee">2 cup of coffee $20.00 USD</option>
+                        <option value="3 cup of coffee">3 cup of coffee $30.00 USD</option>
+                    </select></td></tr>
+                    </table>
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div>                                                                          
+            </div>
+        </div>
+		</div>',
 		'priority' => 10,
-	);
+	);	
+	 	
 	 	
 	
 	

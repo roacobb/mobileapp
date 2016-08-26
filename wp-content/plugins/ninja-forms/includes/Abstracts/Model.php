@@ -153,12 +153,13 @@ class NF_Abstracts_Model
             $this->_id = absint( $id );
         } elseif( $id ) {
 
-            $field = $this->_db->get_row(
+            $field = $this->_db->get_row( $this->_db->prepare(
                 "
                 SELECT `id`
                 FROM   `$this->_table_name`
-                WHERE  `key` = '$id'
+                WHERE  `key` = %s
                 "
+                , $id )
             );
 
             if( $field ){
@@ -219,7 +220,11 @@ class NF_Abstracts_Model
      */
     public function get_setting( $setting, $default = FALSE )
     {
-        $return = $this->get_settings( $setting );
+        if( isset( $this->_settings[ $setting ] )){
+            $return =  $this->_settings[ $setting ];
+        } else {
+            $return = $this->get_settings($setting);
+        }
 
         return ( $return ) ? $return : $default;
     }

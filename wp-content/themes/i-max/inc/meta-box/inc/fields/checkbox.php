@@ -2,23 +2,10 @@
 // Prevent loading this file directly
 defined( 'ABSPATH' ) || exit;
 
-// Make sure "input" field is loaded
-require_once RWMB_FIELDS_DIR . 'input.php';
-
 if ( ! class_exists( 'RWMB_Checkbox_Field' ) )
 {
-	class RWMB_Checkbox_Field extends RWMB_Input_Field
+	class RWMB_Checkbox_Field extends RWMB_Field
 	{
-		/**
-		 * Enqueue scripts and styles
-		 *
-		 * @return void
-		 */
-		static function admin_enqueue_scripts()
-		{
-			wp_enqueue_style( 'rwmb-checkbox', RWMB_CSS_URL . 'checkbox.css', array(), RWMB_VER );
-		}
-
 		/**
 		 * Get field HTML
 		 *
@@ -29,29 +16,12 @@ if ( ! class_exists( 'RWMB_Checkbox_Field' ) )
 		 */
 		static function html( $meta, $field )
 		{
-			$attributes          = $field['attributes'];
-			$attributes['value'] = 1;
 			return sprintf(
-				'<input %s value="1" %s>',
-				self::render_attributes( $attributes ),
+				'<input type="checkbox" class="rwmb-checkbox" name="%s" id="%s" value="1" %s>',
+				$field['field_name'],
+				$field['id'],
 				checked( ! empty( $meta ), 1, false )
 			);
-		}
-
-		/**
-		 * Normalize parameters for field
-		 *
-		 * @param array $field
-		 *
-		 * @return array
-		 */
-		static function normalize_field( $field )
-		{
-			$field                       = parent::normalize_field( $field );
-			$field['attributes']['list'] = false;
-			$field['attributes']['type'] = 'checkbox';
-
-			return $field;
 		}
 
 		/**
@@ -70,29 +40,6 @@ if ( ! class_exists( 'RWMB_Checkbox_Field' ) )
 		static function value( $new, $old, $post_id, $field )
 		{
 			return empty( $new ) ? 0 : 1;
-		}
-
-		/**
-		 * Output the field value
-		 * Display 'Yes' or 'No' instead of '1' and '0'
-		 *
-		 * Note: we don't echo the field value directly. We return the output HTML of field, which will be used in
-		 * rwmb_the_field function later.
-		 *
-		 * @use self::get_value()
-		 * @see rwmb_the_field()
-		 *
-		 * @param  array    $field   Field parameters
-		 * @param  array    $args    Additional arguments. Rarely used. See specific fields for details
-		 * @param  int|null $post_id Post ID. null for current post. Optional.
-		 *
-		 * @return string HTML output of the field
-		 */
-		static function the_value( $field, $args = array(), $post_id = null )
-		{
-			$value = self::get_value( $field, $args, $post_id );
-
-			return $value ? __( 'Yes', 'meta-box' ) : __( 'No', 'meta-box' );
 		}
 	}
 }

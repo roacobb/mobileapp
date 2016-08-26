@@ -256,7 +256,13 @@ class Profile_Builder_Form_Creator{
 
         $location .= "/?autologin=true&uid=$user->ID&_wpnonce=$nonce";
 
-        return "<script> window.location.replace('$location'); </script>";
+		$redirect_message = '<p class="redirect_message">'. sprintf( __( 'You will soon be redirected automatically. If you see this page for more than %1$d seconds, please click %2$s.%3$s', 'profile-builder' ), $this->args['redirect_delay'], '<a href="'. $location .'">'. __( 'here', 'profile-builder' ) .'</a>', '<meta http-equiv="Refresh" content="'. $this->args['redirect_delay'] .';url='. $location .'" />' ) .'</p>';
+
+		if ( $this->args['redirect_activated'] == 'No' ) {
+			return "<script> window.location.replace( '$location' ); </script>";
+		} else {
+			return "<script> jQuery( '#wppb_form_success_message' ).after( '$redirect_message' ); </script>";
+		}
 	}
 	
 	function wppb_form_content( $message ){
@@ -520,6 +526,9 @@ class Profile_Builder_Form_Creator{
         if( isset( $wppb_general_settings['loginWith'] ) && ( $wppb_general_settings['loginWith'] == 'email' ) ){
             $userdata['user_login'] = apply_filters( 'wppb_generated_random_username', Wordpress_Creation_Kit_PB::wck_generate_slug( trim( $userdata['user_email'] ) ), $userdata['user_email'] );
         }
+
+		/* filter so we can bypass Email Confirmation on register */
+		$wppb_general_settings['emailConfirmation'] = apply_filters( 'wppb_email_confirmation_on_register', $wppb_general_settings['emailConfirmation'], $global_request );
 
         if ( isset( $wppb_general_settings['emailConfirmation'] ) && ( $wppb_general_settings['emailConfirmation'] == 'yes' ) ){
             $new_user_signup = true;

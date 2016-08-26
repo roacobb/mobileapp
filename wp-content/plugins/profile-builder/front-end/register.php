@@ -166,7 +166,7 @@ function wppb_activate_signup( $key ) {
 function wppb_front_end_register( $atts ){
 	extract( shortcode_atts( array( 'role' => get_option( 'default_role' ), 'form_name' => 'unspecified', 'redirect_url' => '', 'redirect_priority' => 'normal' ), $atts, 'wppb-register' ) );
 	
-	global $$form_name;
+	global ${$form_name};
 
     $$form_name = new Profile_Builder_Form_Creator( array( 'form_type' => 'register', 'form_name' => $form_name, 'role' => ( is_object( get_role( $role ) ) ? $role : get_option( 'default_role' ) ) , 'redirect_url' => $redirect_url, 'redirect_priority' => $redirect_priority ) );
 

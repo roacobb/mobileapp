@@ -10,19 +10,22 @@ if ( ! class_exists( 'RWMB_Password_Field' ) )
 	class RWMB_Password_Field extends RWMB_Text_Field
 	{
 		/**
-		 * Normalize parameters for field
+		 * Get field HTML
 		 *
+		 * @param mixed $meta
 		 * @param array $field
 		 *
-		 * @return array
+		 * @return string
 		 */
-		static function normalize_field( $field )
+		static function html( $meta, $field )
 		{
-			$field = parent::normalize_field( $field );
-
-			$field['attributes']['type'] = 'password';
-
-			return $field;
+			return sprintf(
+				'<input type="password" class="rwmb-password" name="%s" id="%s" value="%s" size="%s" />',
+				$field['field_name'],
+				$field['id'],
+				$meta,
+				$field['size']
+			);
 		}
 	}
 }

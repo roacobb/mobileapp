@@ -10,19 +10,23 @@ if ( ! class_exists( 'RWMB_Email_Field' ) )
 	class RWMB_Email_Field extends RWMB_Text_Field
 	{
 		/**
-		 * Normalize parameters for field
+		 * Get field HTML
 		 *
+		 * @param mixed $meta
 		 * @param array $field
 		 *
-		 * @return array
+		 * @return string
 		 */
-		static function normalize_field( $field )
+		static function html( $meta, $field )
 		{
-			$field = parent::normalize_field( $field );
-
-			$field['attributes']['type']  = 'email';
-
-			return $field;
+			return sprintf(
+				'<input type="email" class="rwmb-email" name="%s" id="%s" value="%s" size="%s" placeholder="%s"/>',
+				$field['field_name'],
+				$field['id'],
+				$meta,
+				$field['size'],
+				$field['placeholder']
+			);
 		}
 
 		/**
@@ -37,17 +41,7 @@ if ( ! class_exists( 'RWMB_Email_Field' ) )
 		 */
 		static function value( $new, $old, $post_id, $field )
 		{
-			if ( $field['clone'] )
-			{
-				$new = (array) $new;
-				$new = array_map( 'sanitize_email', $new );
-			}
-			else
-			{
-				$new = sanitize_email( $new );
-			}
-
-			return $new;
+			return sanitize_email( $new );
 		}
 	}
 }

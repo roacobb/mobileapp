@@ -16,8 +16,8 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 			wp_enqueue_style( 'rwmb-file', RWMB_CSS_URL . 'file.css', array(), RWMB_VER );
 			wp_enqueue_script( 'rwmb-file', RWMB_JS_URL . 'file.js', array( 'jquery' ), RWMB_VER, true );
 			wp_localize_script( 'rwmb-file', 'rwmbFile', array(
-				'maxFileUploadsSingle' => __( 'You may only upload maximum %d file', 'meta-box' ),
-				'maxFileUploadsPlural' => __( 'You may only upload maximum %d files', 'meta-box' ),
+				'maxFileUploadsSingle' => __( 'You may only upload maximum %d file', 'i-max' ),
+				'maxFileUploadsPlural' => __( 'You may only upload maximum %d files', 'i-max' ),
 			) );
 		}
 
@@ -95,7 +95,7 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 			if ( $ok )
 				wp_send_json_success();
 			else
-				wp_send_json_error( __( 'Error: Cannot delete file', 'meta-box' ) );
+				wp_send_json_error( __( 'Error: Cannot delete file', 'i-max' ) );
 		}
 
 		/**
@@ -108,8 +108,8 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 		 */
 		static function html( $meta, $field )
 		{
-			$i18n_title = apply_filters( 'rwmb_file_upload_string', _x( 'Upload Files', 'file upload', 'meta-box' ), $field );
-			$i18n_more  = apply_filters( 'rwmb_file_add_string', _x( '+ Add new file', 'file upload', 'meta-box' ), $field );
+			$i18n_title = apply_filters( 'rwmb_file_upload_string', _x( 'Upload Files', 'file upload', 'i-max' ), $field );
+			$i18n_more  = apply_filters( 'rwmb_file_add_string', _x( '+ Add new file', 'file upload', 'i-max' ), $field );
 
 			// Uploaded files
 			$html             = self::get_uploaded_files( $meta, $field );
@@ -165,8 +165,8 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 
 		static function file_html( $attachment_id )
 		{
-			$i18n_delete = apply_filters( 'rwmb_file_delete_string', _x( 'Delete', 'file upload', 'meta-box' ) );
-			$i18n_edit   = apply_filters( 'rwmb_file_edit_string', _x( 'Edit', 'file upload', 'meta-box' ) );
+			$i18n_delete = apply_filters( 'rwmb_file_delete_string', _x( 'Delete', 'file upload', 'i-max' ) );
+			$i18n_edit   = apply_filters( 'rwmb_file_edit_string', _x( 'Edit', 'file upload', 'i-max' ) );
 			$li          = '
 			<li id="item_%s">
 				<div class="rwmb-icon">%s</div>
@@ -290,93 +290,19 @@ if ( ! class_exists( 'RWMB_File_Field' ) )
 		}
 
 		/**
-		 * Get the field value
-		 * The difference between this function and 'meta' function is 'meta' function always returns the escaped value
-		 * of the field saved in the database, while this function returns more meaningful value of the field
+		 * Standard meta retrieval
 		 *
-		 * @param  array    $field   Field parameters
-		 * @param  array    $args    Not used for this field
-		 * @param  int|null $post_id Post ID. null for current post. Optional.
+		 * @param int   $post_id
+		 * @param array $field
+		 * @param bool  $saved
 		 *
-		 * @return mixed Full info of uploaded files
+		 * @return mixed
 		 */
-		static function get_value( $field, $args = array(), $post_id = null )
+		static function meta( $post_id, $saved, $field )
 		{
-			if ( ! $post_id )
-				$post_id = get_the_ID();
+			$meta = parent::meta( $post_id, $saved, $field );
 
-			/**
-			 * Get raw meta value in the database, no escape
-			 * Very similar to self::meta() function
-			 */
-			$file_ids = get_post_meta( $post_id, $field['id'], false );
-
-			// For each file, get full file info
-			$value = array();
-			foreach ( $file_ids as $file_id )
-			{
-				if ( $file_info = call_user_func( array( RW_Meta_Box::get_class_name( $field ), 'file_info' ), $file_id, $args ) )
-				{
-					$value[$file_id] = $file_info;
-				}
-			}
-
-			return $value;
-		}
-
-		/**
-		 * Output the field value
-		 * Display unordered list of files
-		 *
-		 * @param  array    $field   Field parameters
-		 * @param  array    $args    Additional arguments. Not used for these fields.
-		 * @param  int|null $post_id Post ID. null for current post. Optional.
-		 *
-		 * @return mixed Field value
-		 */
-		static function the_value( $field, $args = array(), $post_id = null )
-		{
-			$value = self::get_value( $field, $args, $post_id );
-			if ( ! $value )
-				return '';
-
-			$output = '<ul>';
-			foreach ( $value as $file_id => $file_info )
-			{
-				$output .= sprintf(
-					'<li><a href="%s" target="_blank">%s</a></li>',
-					wp_get_attachment_url( $file_id ),
-					get_the_title( $file_id )
-				);
-			}
-			$output .= '</ul>';
-
-			return $output;
-		}
-
-		/**
-		 * Get uploaded file information
-		 *
-		 * @param int   $file_id Attachment file ID (post ID). Required.
-		 * @param array $args    Array of arguments (for size).
-		 *
-		 * @return array|bool False if file not found. Array of (id, name, path, url) on success
-		 */
-		static function file_info( $file_id, $args = array() )
-		{
-			$path = get_attached_file( $file_id );
-			if ( ! $path )
-			{
-				return false;
-			}
-
-			return array(
-				'ID'    => $file_id,
-				'name'  => basename( $path ),
-				'path'  => $path,
-				'url'   => wp_get_attachment_url( $file_id ),
-				'title' => get_the_title( $file_id ),
-			);
+			return empty( $meta ) ? array() : (array) $meta;
 		}
 	}
 }

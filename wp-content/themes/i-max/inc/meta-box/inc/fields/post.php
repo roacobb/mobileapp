@@ -2,12 +2,12 @@
 // Prevent loading this file directly
 defined( 'ABSPATH' ) || exit;
 
-// Make sure "select-advanced" field is loaded
+// Make sure "select" field is loaded
 require_once RWMB_FIELDS_DIR . 'select-advanced.php';
 
 if ( ! class_exists( 'RWMB_Post_Field' ) )
 {
-	class RWMB_Post_Field extends RWMB_Select_Advanced_Field
+	class RWMB_Post_Field extends RWMB_Field
 	{
 		/**
 		 * Enqueue scripts and styles
@@ -16,7 +16,6 @@ if ( ! class_exists( 'RWMB_Post_Field' ) )
 		 */
 		static function admin_enqueue_scripts()
 		{
-			RWMB_Select_Field::admin_enqueue_scripts();
 			RWMB_Select_Advanced_Field::admin_enqueue_scripts();
 		}
 
@@ -50,6 +49,13 @@ if ( ! class_exists( 'RWMB_Post_Field' ) )
 		 */
 		static function normalize_field( $field )
 		{
+			$default_post_type = __( 'Post', 'i-max' );
+			if ( is_string( $field['post_type'] ) )
+			{
+				$post_type_object  = get_post_type_object( $field['post_type'] );
+				$default_post_type = $post_type_object->labels->singular_name;
+			}
+
 			$field = wp_parse_args( $field, array(
 				'post_type'  => 'post',
 				'field_type' => 'select_advanced',
@@ -57,21 +63,7 @@ if ( ! class_exists( 'RWMB_Post_Field' ) )
 				'query_args' => array(),
 			) );
 
-			/**
-			 * Set default placeholder
-			 * - If multiple post types: show 'Select a post'
-			 * - If single post type: show 'Select a %post_type_name%'
-			 */
-			if ( empty( $field['placeholder'] ) )
-			{
-				$label = __( 'Select a post', 'meta-box' );
-				if ( is_string( $field['post_type'] ) && post_type_exists( $field['post_type'] ) )
-				{
-					$post_type_object = get_post_type_object( $field['post_type'] );
-					$label            = sprintf( __( 'Select a %s', 'meta-box' ), $post_type_object->labels->singular_name );
-				}
-				$field['placeholder'] = $label;
-			}
+			$field['std'] = empty( $field['std'] ) ? sprintf( __( 'Select a %s', 'i-max' ), $default_post_type ) : $field['std'];
 
 			if ( $field['parent'] )
 			{
@@ -118,7 +110,24 @@ if ( ! class_exists( 'RWMB_Post_Field' ) )
 				return $post->post_parent;
 			}
 
-			return parent::meta( $post_id, $saved, $field );
+			return RWMB_Select_Field::meta( $post_id, $saved, $field );
+		}
+
+		/**
+		 * Save meta value
+		 * If field is cloneable, value is saved as a single entry in DB
+		 * Otherwise value is saved as multiple entries (for backward compatibility)
+		 *
+		 * TODO: A good way to ALWAYS save values in single entry in DB, while maintaining backward compatibility
+		 *
+		 * @param $new
+		 * @param $old
+		 * @param $post_id
+		 * @param $field
+		 */
+		static function save( $new, $old, $post_id, $field )
+		{
+			return RWMB_Select_Field::save( $new, $old, $post_id, $field );
 		}
 
 		/**
@@ -137,35 +146,11 @@ if ( ! class_exists( 'RWMB_Post_Field' ) )
 				while ( $query->have_posts() )
 				{
 					$post               = $query->next_post();
-					$title 				= apply_filters( 'rwmb_post_field_title', $post->post_title, $post );
-					$title 				= apply_filters( "rwmb_{$field['id']}_field_title", $title, $post );
-					$options[$post->ID] = $title;
+					$options[$post->ID] = $post->post_title;
 				}
 			}
 
 			return $options;
-		}
-
-		/**
-		 * Get post link to display in the frontend
-		 *
-		 * @param int   $value Option value, e.g. post ID
-		 * @param int   $index Array index
-		 * @param array $field Field parameter
-		 *
-		 * @return string
-		 */
-		static function get_option_label( &$value, $index, $field )
-		{
-			$value = sprintf(
-				'<a href="%s" title="%s">%s</a>',
-				esc_url( get_permalink( $value ) ),
-				the_title_attribute( array(
-					'post' => $value,
-					'echo' => false,
-				) ),
-				get_the_title( $value )
-			);
 		}
 	}
 }

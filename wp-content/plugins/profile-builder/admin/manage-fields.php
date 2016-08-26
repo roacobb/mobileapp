@@ -46,6 +46,7 @@ function wppb_manage_fields_submenu(){
     if( PROFILE_BUILDER != 'Profile Builder Free' ) {
         $manage_field_types[] = 'Heading';
         $manage_field_types[] = 'Input';
+        $manage_field_types[] = 'Number';
         $manage_field_types[] = 'Input (Hidden)';
         $manage_field_types[] = 'Textarea';
         $manage_field_types[] = 'WYSIWYG';
@@ -142,6 +143,10 @@ function wppb_manage_fields_submenu(){
 		array( 'type' => 'textarea', 'slug' => 'default-content', 'title' => __( 'Default Content', 'profile-builder' ), 'description' => __( "Default value of the textarea", 'profile-builder' ) ),
 		array( 'type' => 'textarea', 'slug' => 'html-content', 'title' => __( 'HTML Content', 'profile-builder' ), 'description' => __( "Add your HTML (or text) content", 'profile-builder' ) ),
 		array( 'type' => 'text', 'slug' => 'phone-format', 'title' => __( 'Phone Format', 'profile-builder' ), 'default' => '(###) ###-####', 'description' => __( "You can use: # for numbers, parentheses ( ), - sign, + sign, dot . and spaces.", 'profile-builder' ) .'<br>'.  __( "Eg. (###) ###-####", 'profile-builder' ) .'<br>'. __( "Empty field won't check for correct phone number.", 'profile-builder' ) ),
+		array( 'type' => 'select', 'slug' => 'heading-tag', 'title' => __( 'Heading Tag', 'profile-builder' ), 'options' => array( '%h1 - biggest size%h1', 'h2', 'h3', 'h4', 'h5', '%h6 - smallest size%h6' ), 'default' => 'h4', 'description' => __( 'Change heading field size on front-end forms', 'profile-builder' ) ),
+		array( 'type' => 'text', 'slug' => 'min-number-value', 'title' => __( 'Min Number Value', 'profile-builder' ), 'description' => __( "Min allowed number value (0 to allow only positive numbers)", 'profile-builder' ) .'<br>'. __( "Leave it empty for no min value", 'profile-builder' ) ),
+		array( 'type' => 'text', 'slug' => 'max-number-value', 'title' => __( 'Max Number Value', 'profile-builder' ), 'description' => __( "Max allowed number value (0 to allow only negative numbers)", 'profile-builder' ) .'<br>'. __( "Leave it empty for no max value", 'profile-builder' ) ),
+		array( 'type' => 'text', 'slug' => 'number-step-value', 'title' => __( 'Number Step Value', 'profile-builder' ), 'description' => __( "Step value 1 to allow only integers, 0.1 to allow integers and numbers with 1 decimal", 'profile-builder' ) .'<br>'. __( "To allow multiple decimals use for eg. 0.01 (for 2 deciamls) and so on", 'profile-builder' ) .'<br>'. __( "You can also use step value to specify the legal number intervals (eg. step value 2 will allow only -4, -2, 0, 2 and so on)", 'profile-builder' ) .'<br>'. __( "Leave it empty for no restriction", 'profile-builder' ) ),
 		array( 'type' => 'select', 'slug' => 'required', 'title' => __( 'Required', 'profile-builder' ), 'options' => array( 'No', 'Yes' ), 'default' => 'No', 'description' => __( 'Whether the field is required or not', 'profile-builder' ) ),
         array( 'type' => 'select', 'slug' => 'overwrite-existing', 'title' => __( 'Overwrite Existing', 'profile-builder' ), 'options' => array( 'No', 'Yes' ), 'default' => 'No', 'description' => __( "Selecting 'Yes' will add the field to the list, but will overwrite any other field in the database that has the same meta-name<br/>Use this at your own risk", 'profile-builder' ) ),
     ) );
@@ -971,7 +976,7 @@ function wppb_check_field_on_edit_add( $message, $fields, $required_fields, $met
 			}
 		}
 		// END check if the unique fields are only added once
-		
+
 		// check for avatar size
 		if ( $posted_values['field'] == 'Avatar' ){
 			if ( is_numeric( $posted_values['avatar-size'] ) ){
@@ -1065,6 +1070,14 @@ function wppb_check_field_on_edit_add( $message, $fields, $required_fields, $met
 			}
 		}
 		//END check duplicate meta-name
+
+		// check for correct meta name on upload field
+		if( $posted_values['field'] == 'Upload' ) {
+			if( ! empty( $posted_values['meta-name'] ) && preg_match( '/([^a-z\d_-])/', $posted_values['meta-name'] ) ) {
+				$message .= __( "The meta-name can only contain lowercase letters, numbers, _ , - and no spaces.\n", 'profile-builder' );
+			}
+		}
+		// END check for correct meta name on upload field
 		
 		// check for valid default option (checkbox, select, radio)
 		if ( ( $posted_values['field'] == 'Checkbox' ) || ( $posted_values['field'] == 'Select (Multiple)' ) ) {

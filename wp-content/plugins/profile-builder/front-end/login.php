@@ -27,7 +27,8 @@ function wppb_change_login_with_email(){
 		// only do this for our form
 		if( isset( $_POST['wppb_login'] ) ){
 			global $wpdb, $_POST;
-
+			// apply filter to allow stripping slashes if necessary
+			$_POST['log'] = apply_filters( 'wppb_before_processing_email_from_forms', $_POST['log'] );
 			$wppb_generalSettings = get_option( 'wppb_general_settings' );
 
 			// if this setting is active, the posted username is, in fact the user's email

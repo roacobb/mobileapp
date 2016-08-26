@@ -76,18 +76,6 @@ if ( ! class_exists( 'RWMB_Wysiwyg_Field' ) )
 		}
 
 		/**
-		 * Escape meta for field output
-		 *
-		 * @param mixed $meta
-		 *
-		 * @return mixed
-		 */
-		static function esc_meta( $meta )
-		{
-			return $meta;
-		}
-
-		/**
 		 * Normalize parameters for field
 		 *
 		 * @param array $field
@@ -114,7 +102,7 @@ if ( ! class_exists( 'RWMB_Wysiwyg_Field' ) )
 
 		static function footer_scripts()
 		{
-			echo '<script> var rwmb_cloneable_editors = ' , wp_json_encode( self::$cloneable_editors ) , ';</script>';
+			echo '<script> var rwmb_cloneable_editors = ' . json_encode( self::$cloneable_editors ) . ';</script>';
 		}
 	}
 }

@@ -675,8 +675,33 @@ function imax_remove_wc_breadcrumbs() {
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 }
 
+
+/**
+ * Add a stylesheet for admin panels
+ * @since i-spirit 1.0
+ */
+add_action('admin_init', 'imax_admin_css');
+function imax_admin_css() {
+   wp_register_style( 'imax-admin-css', get_template_directory_uri() . '/css/admin-style.css' );
+   wp_enqueue_style( 'imax-admin-css' );
+}
+
+add_action( 'admin_enqueue_scripts', 'imax_admin_js' );
+function imax_admin_js() {
+    wp_enqueue_script( 'imax-admin-script', get_template_directory_uri() . '/js/admin-script.js' );
+}
+
+/**
+ * Add WooCommerce Support
+ * @since i-max 1.0
+ */
 add_theme_support( 'woocommerce' );
 
+
+/**
+ * Add TGM Plugin Activation
+ * @since i-max 1.0
+ */
 
 require_once dirname( __FILE__ ) . '/inc/class-tgm-plugin-activation.php';
 

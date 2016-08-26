@@ -122,23 +122,13 @@ global $post;
 		
 		
 		$other_slider = esc_html($other_slider);
-		$other_front_slider = esc_html($other_front_slider);			
+		$other_front_slider = esc_html($other_front_slider);
 		
-		if($other_slider) :
-		?>
-		
-        <div class="other-slider" style="">
-	       	<?php echo do_shortcode( htmlspecialchars_decode($other_slider) ) ?>
-        </div>
-        <?php //elseif ( is_front_page() )  : ?>
-		
-		<?php	
-		elseif ( is_home() && !is_paged() || $show_slider ) : 
-		?>
-            <?php //imax_ibanner_slider(); ?>
-            <?php if (!empty($other_front_slider)) : ?>
+		if ( is_home() ) {
+			
+			if ( !empty($other_front_slider) ) : ?>
             	<?php echo do_shortcode( htmlspecialchars_decode($other_front_slider) ) ?>
-        	<?php elseif ( !$hide_front_slider || ( is_front_page() && $show_slider ) ) : ?>
+        	<?php elseif ( $hide_front_slider == 0 ) : ?>
             	<?php imax_ibanner_slider(); ?>
         	<?php else : ?>
             <div class="iheader" style="">
@@ -152,73 +142,84 @@ global $post;
                     </h1>
                 </div>
             </div>                                    
-        	<?php endif; ?>            
-            
-        <?php 
-		elseif(!$hide_title) : 
-		?>
-        
-        <div class="iheader" style="">
-        	<div class="titlebar">
-            	
-                <?php
-					if( is_archive() )
-					{
-						echo '<h1 class="entry-title">';
-							if ( is_day() ) :
-								printf( __( 'Daily Archives: %s', 'i-max' ), get_the_date() );
-							elseif ( is_month() ) :
-								printf( __( 'Monthly Archives: %s', 'i-max' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'i-max' ) ) );
-							elseif ( is_year() ) :
-								printf( __( 'Yearly Archives: %s', 'i-max' ), get_the_date( _x( 'Y', 'yearly archives date format', 'i-max' ) ) );
-							elseif ( is_category() ) :	
-								printf( __( 'Category Archives: %s', 'i-max' ), single_cat_title( '', false ) );		
-							else :
-								_e( 'Archives', 'i-max' );
-							endif;                						
-						echo '</h1>';
-					} elseif ( is_search() )
-					{
-						echo '<h1 class="entry-title">';
-							printf( __( 'Search Results for: %s', 'i-max' ), get_search_query() );					
-						echo '</h1>';
-					} else
-					{
-						if ( !empty($custom_title) )
-						{
-							echo '<h1 class="entry-title">'.esc_attr($custom_title).'</h1>';
-						}
-						else
+        	<?php endif;
+		} else 
+		{
+
+			if($other_slider) :
+			?>
+			
+			<div class="other-slider" style="">
+				<?php echo do_shortcode( htmlspecialchars_decode($other_slider) ) ?>
+			</div>
+	
+			<?php	
+			//elseif ( is_home() && !is_paged() || $show_slider ) : 
+			elseif ( $show_slider ) : 		
+			?>
+				<?php imax_ibanner_slider(); ?>
+			<?php 
+			elseif( !$hide_title ) : 
+			?>
+			
+			<div class="iheader" style="">
+				<div class="titlebar">
+					
+					<?php
+						if( is_archive() )
 						{
 							echo '<h1 class="entry-title">';
-							the_title();
+								if ( is_day() ) :
+									printf( __( 'Daily Archives: %s', 'i-max' ), get_the_date() );
+								elseif ( is_month() ) :
+									printf( __( 'Monthly Archives: %s', 'i-max' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'i-max' ) ) );
+								elseif ( is_year() ) :
+									printf( __( 'Yearly Archives: %s', 'i-max' ), get_the_date( _x( 'Y', 'yearly archives date format', 'i-max' ) ) );
+								elseif ( is_category() ) :	
+									printf( __( 'Category Archives: %s', 'i-max' ), single_cat_title( '', false ) );		
+								else :
+									_e( 'Archives', 'i-max' );
+								endif;                						
 							echo '</h1>';
-						}						
-					}
+						} elseif ( is_search() )
+						{
+							echo '<h1 class="entry-title">';
+								printf( __( 'Search Results for: %s', 'i-max' ), get_search_query() );					
+							echo '</h1>';
+						} else
+						{
+							if ( !empty($custom_title) )
+							{
+								echo '<h1 class="entry-title">'.esc_attr($custom_title).'</h1>';
+							}
+							else
+							{
+								echo '<h1 class="entry-title">';
+								the_title();
+								echo '</h1>';
+							}						
+						}
+						
+					?>
+					<?php 
 					
-					//echo rwmb_meta('imax_customtitle');
-
-					/**/
-            	?>
-				<?php 
-				
-					$hide_breadcrumb = rwmb_meta('imax_hide_breadcrumb');
+						$hide_breadcrumb = rwmb_meta('imax_hide_breadcrumb');
+						
+						if(function_exists('bcn_display') && !$hide_breadcrumb )
+						{
+						?>
+							<div class="nx-breadcrumb"><?php bcn_display(); ?></div>
+						<?php		
+						} 
+					?>               
 					
-                    if(function_exists('bcn_display') && !$hide_breadcrumb )
-                    {
-				?>
-                	<div class="nx-breadcrumb">
-                <?php
-                        bcn_display();
-				?>
-                	</div>
-                <?php		
-                    } 
-                ?>               
-            	
-            </div>
-        </div>
-        
-		<?php endif; ?>
+				</div>
+			</div>
+			
+			<?php endif;
+		
+		}		
+		
+		?>
 		<div id="main" class="site-main">
 

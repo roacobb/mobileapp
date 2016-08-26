@@ -98,7 +98,12 @@ function wppb_add_ons_content() {
                     echo '</a>';
                     echo '</h3>';
 
-                    echo '<h3 class="wppb-add-on-price">' . $wppb_add_on['price'] . '</h3>';
+                    //echo '<h3 class="wppb-add-on-price">' . $wppb_add_on['price'] . '</h3>';
+                    if( $wppb_add_on['type'] == 'paid' )
+                        echo '<h3 class="wppb-add-on-price">' . __( 'Available in Hobbyist and Pro Versions', 'profile-builder' ) . '</h3>';
+                    else
+                        echo '<h3 class="wppb-add-on-price">' . __( 'Available in All Versions', 'profile-builder' ) . '</h3>';
+
                     echo '<p class="wppb-add-on-description">' . $wppb_add_on['description'] . '</p>';
 
                     echo '</div>';
@@ -141,10 +146,10 @@ function wppb_add_ons_content() {
                                 // handles the in-page download
                                 if (is_multisite()) {
                                     ($wppb_add_on['paid']) ? $wppb_paid_link_class = 'button-primary' : $wppb_paid_link_class = 'button-secondary';
-                                    ($wppb_add_on['paid']) ? $wppb_paid_link_text = __('Buy Now', 'profile-builder') : $wppb_paid_link_text = __('Download Now', 'profile-builder');
+                                    ($wppb_add_on['paid']) ? $wppb_paid_link_text = __('Learn More', 'profile-builder') : $wppb_paid_link_text = __('Download Now', 'profile-builder');
                                 } else {
                                     ($wppb_add_on['paid']) ? $wppb_paid_link_class = 'button-primary' : $wppb_paid_link_class = 'button-secondary wppb-add-on-download';
-                                    ($wppb_add_on['paid']) ? $wppb_paid_link_text = __('Buy Now', 'profile-builder') : $wppb_paid_link_text = __('Install Now', 'profile-builder');
+                                    ($wppb_add_on['paid']) ? $wppb_paid_link_text = __('Learn More', 'profile-builder') : $wppb_paid_link_text = __('Install Now', 'profile-builder');
                                 }
 
                                 ($wppb_add_on['paid']) ? $wppb_paid_href_utm_text = '?utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page-buy-button&utm_campaign=PB' . $version : $wppb_paid_href_utm_text = '&utm_source=wpbackend&utm_medium=clientsite&utm_content=add-on-page&utm_campaign=PB' . $version;
@@ -211,7 +216,7 @@ function wppb_add_ons_content() {
             <div class="plugin-card wppb-recommended-plugin wppb-add-on">
                 <div class="plugin-card-top">
                     <a target="_blank" href="http://wordpress.org/plugins/paid-member-subscriptions/">
-                        <img src="<?php echo plugins_url( '../assets/images/pms_recommended.jpg', __FILE__ ); ?>" width="100%">
+                        <img src="<?php echo plugins_url( '../assets/images/pms-recommended.png', __FILE__ ); ?>" width="100%">
                     </a>
                     <h3 class="wppb-add-on-title">
                         <a target="_blank" href="http://wordpress.org/plugins/paid-member-subscriptions/">Paid Member Subscriptions</a>
